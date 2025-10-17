@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation
+package com.example.moneymanagement.presentation.view.base
 
 interface BaseView {
 

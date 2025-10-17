@@ -1,10 +1,9 @@
-package com.example.moneymanagement.presentation
+package com.example.moneymanagement.presentation.view.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.example.moneymanagement.presentation.BaseView
 
 abstract class BaseActivity<VB : ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB) :
     AppCompatActivity(), BaseView {
