@@ -43,7 +43,6 @@ class ExpandViewModel() : ViewModel() {
                     childExpend = aprilTransactions
                 )
             )
-
             parentData.add(ExpendParent("Apr 2024", aprilTransactions))
 
             return parentData
