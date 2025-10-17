@@ -3,7 +3,7 @@ package com.example.moneymanagement.presentation.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.moneymanagement.presentation.view.expandfragment.ExpendFragment
+import com.example.moneymanagement.presentation.view.expendfragment.ExpendFragment
 import com.example.moneymanagement.presentation.view.incomfragment.IncomeFragment
 import com.example.moneymanagement.presentation.view.loanfragment.LoanFragment
 
