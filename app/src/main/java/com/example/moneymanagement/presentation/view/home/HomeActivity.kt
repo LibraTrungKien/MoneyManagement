@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
 
     private lateinit var adapter: HomeAdapter
+    private var initMoneyVisible = true
 
     override fun initializeComponent() {
         adapter = HomeAdapter(this)
@@ -27,7 +28,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun initializeEvents() {
-        toggleTotalMoneyVisibility()
+        totalMoneyVisibility()
         menu()
     }
 
@@ -37,20 +38,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun bindView() {
-        super.bindView()
+        bindMoneyVisibility()
     }
 
-    private fun toggleTotalMoneyVisibility() {
+    private fun totalMoneyVisibility() {
         val sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE)
-        val initMoneyVisible = sharedPreferences.getBoolean("isMoneyVisible", true)
-
-        if (initMoneyVisible) {
-            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye)
-            binding.txtTotalMoney.text = "$ 5,000,000"
-        } else {
-            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
-            binding.txtTotalMoney.text = "*** *** ***"
-        }
+        initMoneyVisible = sharedPreferences.getBoolean("isMoneyVisible", true)
 
         binding.btnEyeTotalMoney.setOnClickListener {
             val isMoneyVisible = sharedPreferences.getBoolean("isMoneyVisible", true)
@@ -77,5 +70,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
     }
 
+    private fun bindMoneyVisibility() {
+        if (initMoneyVisible) {
+            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye)
+            binding.txtTotalMoney.text = "$ 5,000,000"
+        } else {
+            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
+            binding.txtTotalMoney.text = "*** *** ***"
+        }
+    }
 
 }

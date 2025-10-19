@@ -23,8 +23,7 @@ class ExpendChildAdapter(private val data: List<ExpendChild>) :
 
     override fun getItemCount(): Int = data.size
 
-
-    inner class ExpendChildViewHolder(val binding: ItemHistoryExpendChildBinding) :
+   inner class ExpendChildViewHolder(val binding: ItemHistoryExpendChildBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(itemChild: ExpendChild) {
