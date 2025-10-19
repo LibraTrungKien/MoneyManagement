@@ -1,14 +1,16 @@
 package com.example.moneymanagement.presentation.view.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryExpendParentBinding
-import com.example.moneymanagement.presentation.model.ExpendParent
+import com.example.moneymanagement.presentation.model.TransactionParent
 
-class ExpendParentAdapter(private val data: List<ExpendParent>) :
-    RecyclerView.Adapter<ExpendParentAdapter.ExpendParentViewHolder>() {
+class ExpendParentAdapter(
+    private val itemClick: OnClickItemTransaction,
+    private val data: List<TransactionParent>
+
+) :RecyclerView.Adapter<ExpendParentAdapter.ExpendParentViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
 
@@ -28,15 +30,14 @@ class ExpendParentAdapter(private val data: List<ExpendParent>) :
     inner class ExpendParentViewHolder(private val binding: ItemHistoryExpendParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(itemParent: ExpendParent) {
+        fun bindView(itemParent: TransactionParent) {
             binding.txtDateParent.text = itemParent.date
 
-            val parentAdapter = ExpendChildAdapter(itemParent.childExpend)
+            val parentAdapter = ExpendChildAdapter(itemParent.child, itemClick)
             binding.listHistoryExpendChild.adapter = parentAdapter
 
             binding.listHistoryExpendChild.setRecycledViewPool(viewPool)
         }
-
 
     }
 

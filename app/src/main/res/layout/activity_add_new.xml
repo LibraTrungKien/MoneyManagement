@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
 
         <TextView
             android:id="@+id/btnCancel"
@@ -34,10 +35,11 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:id="@+id/tabLayoutAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:background="@drawable/bg_tab_layout_add_new"
         app:tabBackground="@drawable/tab_background_add_new"
         app:tabIndicatorHeight="0dp"
@@ -49,6 +51,6 @@
         android:id="@+id/viewPagerAddNew"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

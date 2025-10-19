@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.view.home
+package com.example.moneymanagement.presentation.view.homeactivity
 
 import androidx.core.view.GravityCompat
 import com.example.moneymanagement.R

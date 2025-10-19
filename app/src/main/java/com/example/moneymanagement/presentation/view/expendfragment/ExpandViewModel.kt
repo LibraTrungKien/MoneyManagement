@@ -2,17 +2,29 @@ package com.example.moneymanagement.presentation.view.expendfragment
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R
-import com.example.moneymanagement.presentation.model.ExpendChild
-import com.example.moneymanagement.presentation.model.ExpendParent
+import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.model.TransactionParent
 
 class ExpandViewModel() : ViewModel() {
 
-    private val parentData = mutableListOf<ExpendParent>()
+    private val parentData = mutableListOf<TransactionParent>()
 
-        fun initData(): List<ExpendParent> {
+
+
+
+
+
+
+
+
+
+
+
+
+        fun initData(): List<TransactionParent> {
 
             val aprilTransactions = listOf(
-                ExpendChild(
+                TransactionChild(
                     imgCategory = R.drawable.ic_hmburger,
                     nameCategory = "Ăn uống",
                     contentCategory = "Bữa tối",
@@ -20,7 +32,15 @@ class ExpandViewModel() : ViewModel() {
                     expendPrice = 8000
                 ),
 
-                ExpendChild(
+                TransactionChild(
+                    imgCategory = R.drawable.ic_hmburger,
+                    nameCategory = "Ăn uống",
+                    contentCategory = "Nhậu",
+                    time = System.currentTimeMillis() - 1000000,
+                    expendPrice = 5000000
+                ),
+
+                TransactionChild(
                     imgCategory = R.drawable.ic_hmburger,
                     nameCategory = "Ăn uống",
                     contentCategory = "Bữa sáng",
@@ -28,7 +48,7 @@ class ExpandViewModel() : ViewModel() {
                     expendPrice = 8000
                 ),
 
-                ExpendChild(
+                TransactionChild(
                     imgCategory = R.drawable.ic_hmburger,
                     nameCategory = "Ăn uống",
                     contentCategory = "Ăn lẩu",
@@ -37,13 +57,8 @@ class ExpandViewModel() : ViewModel() {
                 ),
             )
 
-            parentData.add(
-                ExpendParent(
-                    date = "Apr 2025",
-                    childExpend = aprilTransactions
-                )
-            )
-            parentData.add(ExpendParent("Apr 2024", aprilTransactions))
+            parentData.add(TransactionParent("Apr 2025", aprilTransactions))
+            parentData.add(TransactionParent("Apr 2024", aprilTransactions))
 
             return parentData
         }

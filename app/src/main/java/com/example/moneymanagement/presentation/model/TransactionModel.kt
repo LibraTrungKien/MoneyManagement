@@ -1,12 +1,12 @@
 package com.example.moneymanagement.presentation.model
 
-data class ExpendParent(
+data class TransactionParent(
     val date: String,
-    val childExpend: List<ExpendChild>
+    val child: List<TransactionChild>
 )
 
 
-data class ExpendChild(
+data class TransactionChild(
 
     val imgCategory: Int,
     val nameCategory: String,
