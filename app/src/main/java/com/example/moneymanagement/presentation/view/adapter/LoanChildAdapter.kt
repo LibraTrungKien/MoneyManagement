@@ -21,7 +21,7 @@ class LoanChildAdapter(val data: List<TransactionChild>): RecyclerView.Adapter<L
         holder: ViewHolder,
         position: Int
     ) {
-        TODO("Not yet implemented")
+        holder.bindView(data[position])
     }
 
     override fun getItemCount(): Int = data.size

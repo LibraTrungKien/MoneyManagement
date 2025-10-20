@@ -26,5 +26,9 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
 
     }
 
+    override fun initializeEvents() {
+        binding.btnCancel.setOnClickListener { finish() }
+    }
+
 
 }

@@ -48,6 +48,8 @@
         app:tabTextColor="#2D0D59" />
 
     <androidx.viewpager2.widget.ViewPager2
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:id="@+id/viewPagerAddNew"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
