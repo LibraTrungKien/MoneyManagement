@@ -5,17 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    android:background="@drawable/bg_bottom_sheet_budget">
+    android:background="@drawable/bg_bottom_sheet">
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:textSize="20sp"
+        android:textColor="#18181B"
+        android:layout_marginTop="16dp"
         android:text="Budget"
         android:textAlignment="center" />
 
     <LinearLayout
+        android:id="@+id/btnNone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -39,6 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnNecessities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -62,6 +67,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnEducation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -85,6 +91,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnSaving"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -108,6 +115,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnPlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -131,6 +139,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnInvestment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -154,6 +163,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnGive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -180,11 +190,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp">
 
        <TextView
+           android:id="@+id/btnCancel"
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_weight="1"
@@ -197,13 +207,14 @@
            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"
+            android:text="Save"
             android:textSize="13sp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_btn_save_button_sheet"
-            android:textColor="#18181B"
+            android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/urbanist_500"/>
