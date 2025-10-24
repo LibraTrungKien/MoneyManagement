@@ -7,14 +7,13 @@ import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
-import com.example.moneymanagement.presentation.view.adapter.OnItemClickBottomSheetDialog
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetTimeBottomSheetDialog
 
 class AddNewLoanFragment :
     BaseFragment<FragmentAddNewLoanBinding>(FragmentAddNewLoanBinding::inflate),
-    OnItemClickBottomSheetDialog, OnClickItemAddNew {
+    OnClickItemAddNew {
 
     private lateinit var adapter: AddNewCategoryAdapter
     private lateinit var data: List<Category>
@@ -58,9 +57,22 @@ class AddNewLoanFragment :
         bottomSheet.show(requireActivity().supportFragmentManager, "Set Date Bottom Sheet Dialog")
     }
 
-    override fun onClickListener(nameBudget: String) {
-            binding.txtBudgetSelection.text = nameBudget
+    override fun onClickListenerBudget(nameBudget: String) {
+        binding.txtBudgetSelection.text = nameBudget
     }
+
+    override fun onCLickListenerDate(
+        day: Int,
+        month: Int,
+        year: Int
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickListerTime(minute: Int, hour: Int) {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onClickListenerCategory(
         item: Category,

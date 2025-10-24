@@ -34,8 +34,7 @@
             app:np_selectedTextSize="18sp"
             app:np_textColor="#939393"
             app:np_textSize="18sp"
-            app:np_width="64dp"
-            app:np_value="15"/>
+            app:np_width="64dp"/>
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/numberPickerMonth"
@@ -46,7 +45,6 @@
             app:np_height="180dp"
             app:np_max="12"
             app:np_min="1"
-            app:np_value="9"
             app:np_selectedTextColor="#4F80FC"
             app:np_selectedTextSize="18sp"
             app:np_textColor="#939393"

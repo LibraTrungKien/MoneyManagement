@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.BottomSheetBudgetBinding
-import com.example.moneymanagement.presentation.view.adapter.OnItemClickBottomSheetDialog
+import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BudgetBottomSheet : BottomSheetDialogFragment() {
 
     private var binding: BottomSheetBudgetBinding? = null
 
-    private lateinit var listener: OnItemClickBottomSheetDialog
+    private lateinit var listener: OnClickItemAddNew
 
     private var selectionBudget: String = "None"
 
-    fun setOnButtonClickListener(listener: OnItemClickBottomSheetDialog) {
+    fun setOnButtonClickListener(listener: OnClickItemAddNew) {
         this.listener = listener
     }
 
@@ -57,9 +57,11 @@ class BudgetBottomSheet : BottomSheetDialogFragment() {
         binding?.btnCancel?.setOnClickListener { dismiss() }
 
         binding?.btnSave?.setOnClickListener {
-            listener.onClickListener(selectionBudget)
+            listener.onClickListenerBudget(selectionBudget)
             dismiss()
         }
+
+        binding!!.btnCancel.setOnClickListener { dismiss() }
 
     }
 

@@ -8,19 +8,21 @@ import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
-import com.example.moneymanagement.presentation.view.adapter.OnItemClickBottomSheetDialog
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetTimeBottomSheetDialog
+import java.util.Calendar
 
 class FragmentAddNewExpend :
     BaseFragment<FragmentAddNewExpendBinding>(FragmentAddNewExpendBinding::inflate),
-    OnItemClickBottomSheetDialog, OnClickItemAddNew {
+     OnClickItemAddNew {
 
     private lateinit var adapter: AddNewCategoryAdapter
     private lateinit var data: List<Category>
     private lateinit var viewModel: AddNewExpendViewModel
     private var nameBudget: String? = null
+    private var calendar = Calendar.getInstance()
+
 
     override fun initializeComponent() {
         viewModel = ViewModelProvider(this)[AddNewExpendViewModel::class.java]
@@ -47,6 +49,14 @@ class FragmentAddNewExpend :
     }
 
     override fun bindView() {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        binding.txtTime.text = "$hour:$minute"
+        binding.txtDate.text = "$day/$month/$year"
     }
 
     private fun showBudgetBottomSheet() {
@@ -57,50 +67,33 @@ class FragmentAddNewExpend :
 
     private fun setTimeBottomSheet() {
         val bottomSheet = SetTimeBottomSheetDialog()
+        bottomSheet.setOnButtonClickListener(this)
         bottomSheet.show(requireActivity().supportFragmentManager, "Set Time Bottom Sheet Dialog")
     }
 
     private fun setDateBottomSheet() {
         val bottomSheet = SetDateBottomSheetDialog()
+        bottomSheet.setOnButtonClickListener(this)
         bottomSheet.show(requireActivity().supportFragmentManager, "Set Date Bottom Sheet Dialog")
     }
 
-    override fun onClickListener(nameBudget: String) {
+    override fun onClickListenerBudget(nameBudget: String) {
             binding.txtBudgetSelection.text = nameBudget
             this.nameBudget = nameBudget
     }
 
-    fun insertExpendEntity() {
-        val amountMoney = getAmountMoney()
-        val note = getNote()
-        viewModel.insertExpendEntity(
-            amountMoney,
-            "",
-            0,
-            nameBudget!!,
-            0,
-            note!!,
-            "",
-            5L
-        )
+    override fun onCLickListenerDate(
+        day: Int,
+        month: Int,
+        year: Int
+    ) {
+        val date = "$day/$month/$year"
+        binding.txtDate.text = date
     }
 
-    private fun getAmountMoney(): Int {
-        val text = binding.edtSetMoney.text.toString().trim()
-        val amount = text.toIntOrNull()
-
-        if (amount == null || amount <= 0) {
-            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT)
-                .show()
-            return 0
-        } else {
-            return amount
-        }
-    }
-
-    private fun getNote(): String? {
-        val note = binding.edtNote.text.toString()
-        return note
+    override fun onClickListerTime(minute: Int, hour: Int) {
+        val time = "$hour:$minute"
+        binding.txtTime.text = time
     }
 
     override fun onClickListenerCategory(
