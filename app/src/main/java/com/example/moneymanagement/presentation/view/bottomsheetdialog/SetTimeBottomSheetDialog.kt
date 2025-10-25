@@ -15,7 +15,7 @@ class SetTimeBottomSheetDialog : BottomSheetDialogFragment() {
     private var binding: BottomSheetSetTimeBinding? = null
     private var calendar = Calendar.getInstance()
     private var minute: Int = calendar.get(Calendar.MINUTE)
-    private var hour: Int = calendar.get(Calendar.MINUTE)
+    private var hour: Int = calendar.get(Calendar.HOUR)
 
     fun setOnButtonClickListener(listener: OnClickItemAddNew) {
         this.listener = listener

@@ -28,7 +28,7 @@
             android:layout_height="150dp"
             app:np_dividerColor="@android:color/transparent"
             app:np_height="180dp"
-            app:np_max="24"
+            app:np_max="23"
             app:np_min="0"
             app:np_selectedTextColor="#4F80FC"
             app:np_selectedTextSize="18sp"

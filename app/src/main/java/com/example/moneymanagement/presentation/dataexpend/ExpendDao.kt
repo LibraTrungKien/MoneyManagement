@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.dataexpend
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,10 +10,10 @@ import androidx.room.Update
 @Dao
 interface ExpendDao {
     @Query("SELECT * FROM ExpendEntity ORDER BY idExpend ASC")
-    fun getAll(): List<ExpendEntity>
+    fun getAll(): LiveData<List<ExpendEntity>>
 
     @Insert
-    fun insertExpend(vararg expend: ExpendEntity)
+    suspend fun insertExpend(vararg expend: ExpendEntity)
 
     @Update
     fun updateExpend(updateExpend: ExpendEntity)

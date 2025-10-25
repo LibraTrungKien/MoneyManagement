@@ -12,35 +12,6 @@ import com.example.moneymanagement.presentation.model.Category
 class AddNewExpendViewModel() : ViewModel() {
 
     private var data = mutableListOf<Category>()
-    private lateinit var appDatabase: AppDatabase
-
-    fun setAppDataBase(database: AppDatabase) {
-        appDatabase = database
-    }
-
-    fun insertExpendEntity(
-        amountExpend: Int,
-        nameTypeCategory: String,
-        imgTypeCategory: Int,
-        nameBudget: String,
-        imgBudget: Int,
-        note: String,
-        dateExpend: String,
-        timeExpend: Long
-    ) {
-        val entity = ExpendEntity(
-            idExpend = 0,
-            amountExpend = amountExpend,
-            nameTypeCategory = nameTypeCategory,
-            imgTypeCategory = imgTypeCategory,
-            nameBudget = nameBudget,
-            imgBudget = imgBudget,
-            note = note,
-            dateExpend = dateExpend,
-            timeExpend = timeExpend
-        )
-        appDatabase.ExpendDao().insertExpend(entity)
-    }
 
 
     fun initData(): List<Category> {

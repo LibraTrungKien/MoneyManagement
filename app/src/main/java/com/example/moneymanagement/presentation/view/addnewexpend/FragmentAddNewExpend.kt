@@ -1,13 +1,15 @@
 package com.example.moneymanagement.presentation.view.addnewexpend
 
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewExpendBinding
-import com.example.moneymanagement.presentation.dataexpend.DataManager
+import com.example.moneymanagement.presentation.dataexpend.ExpendEntity
 import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
+import com.example.moneymanagement.presentation.view.addnew.AddNewViewModel
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetTimeBottomSheetDialog
@@ -15,37 +17,38 @@ import java.util.Calendar
 
 class FragmentAddNewExpend :
     BaseFragment<FragmentAddNewExpendBinding>(FragmentAddNewExpendBinding::inflate),
-     OnClickItemAddNew {
+    OnClickItemAddNew {
 
     private lateinit var adapter: AddNewCategoryAdapter
     private lateinit var data: List<Category>
     private lateinit var viewModel: AddNewExpendViewModel
-    private var nameBudget: String? = null
+    private var nameBudget: String = ""
+    private var imgBudget: Int = 0
     private var calendar = Calendar.getInstance()
+    private var amountMoney: Int = 0
+    private var nameCategory: String = "None"
+    private var imgCategory: Int = 0
+    private lateinit var note: String
+    private lateinit var date: String
+    private lateinit var time: String
 
+    private val addNew: AddNewViewModel by activityViewModels()
 
     override fun initializeComponent() {
         viewModel = ViewModelProvider(this)[AddNewExpendViewModel::class.java]
-
-        val db = DataManager.getDataBase(requireContext())
-
-        viewModel.setAppDataBase(db)
-
         data = viewModel.initData()
         adapter = AddNewCategoryAdapter(data, this)
         binding.lstCategory.adapter = adapter
     }
 
     override fun initializeEvents() {
-        binding.btnBudget.setOnClickListener {
-            showBudgetBottomSheet()
-        }
-    }
-
-    override fun initializeData() {
         binding.btnBudget.setOnClickListener { showBudgetBottomSheet() }
         binding.btnTime.setOnClickListener { setTimeBottomSheet() }
         binding.btnCalender.setOnClickListener { setDateBottomSheet() }
+
+    }
+
+    override fun initializeData() {
     }
 
     override fun bindView() {
@@ -57,6 +60,9 @@ class FragmentAddNewExpend :
 
         binding.txtTime.text = "$hour:$minute"
         binding.txtDate.text = "$day/$month/$year"
+
+        date = "$day/$month/$year"
+        time = "$hour:$minute"
     }
 
     private fun showBudgetBottomSheet() {
@@ -78,21 +84,22 @@ class FragmentAddNewExpend :
     }
 
     override fun onClickListenerBudget(nameBudget: String) {
-            binding.txtBudgetSelection.text = nameBudget
-            this.nameBudget = nameBudget
+        binding.txtBudgetSelection.text = nameBudget
+        this.nameBudget = nameBudget
     }
+
 
     override fun onCLickListenerDate(
         day: Int,
         month: Int,
         year: Int
     ) {
-        val date = "$day/$month/$year"
+        date = "$day/$month/$year"
         binding.txtDate.text = date
     }
 
     override fun onClickListerTime(minute: Int, hour: Int) {
-        val time = "$hour:$minute"
+        time = "$hour:$minute"
         binding.txtTime.text = time
     }
 
@@ -100,7 +107,44 @@ class FragmentAddNewExpend :
         item: Category,
         position: Int,
     ) {
-        Toast.makeText(requireContext(), item.typeCategory, Toast.LENGTH_SHORT).show()
+        nameCategory = item.typeCategory
+        imgCategory = item.imgTypeCategory
+        Toast.makeText(requireContext(), nameCategory + imgCategory, Toast.LENGTH_SHORT).show()
     }
+
+    fun sendData() {
+        note = binding.edtNote.text.toString()
+        val setMoney = binding.edtSetMoney.text.toString()
+        amountMoney = setMoney.toIntOrNull() ?: -1
+
+        if (amountMoney < 0 || amountMoney == 0) {
+            Toast.makeText(requireContext(), "Money must not be less than 0", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (imgCategory == 0) {
+            Toast.makeText(requireContext(), "please choose Category", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (nameBudget.isEmpty()) {
+            Toast.makeText(requireContext(), "Please choose Budget", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val expend = ExpendEntity(
+            idExpend = 0,
+            amountMoney,
+            nameCategory,
+            imgCategory,
+            nameBudget,
+            imgBudget,
+            note,
+            date,
+            time
+        )
+        addNew.setDataList(listOf(expend))
+    }
+
 
 }

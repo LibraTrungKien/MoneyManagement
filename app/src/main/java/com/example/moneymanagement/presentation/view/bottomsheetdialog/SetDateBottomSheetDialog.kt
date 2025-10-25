@@ -7,9 +7,6 @@ import android.view.ViewGroup
 import com.example.moneymanagement.databinding.BottomSheetSetDateBinding
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.time.LocalDateTime
-import java.time.Year
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class SetDateBottomSheetDialog : BottomSheetDialogFragment() {

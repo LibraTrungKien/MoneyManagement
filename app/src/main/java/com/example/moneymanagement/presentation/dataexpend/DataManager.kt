@@ -2,10 +2,8 @@ package com.example.moneymanagement.presentation.dataexpend
 
 import android.content.Context
 import androidx.room.Room
-import kotlin.reflect.KParameter
 
 object DataManager {
-
 
     @Volatile
     private var INSTANCE: AppDatabase? = null
@@ -15,7 +13,7 @@ object DataManager {
             val instance = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "data expend"
+                "data_expend"
             ).build()
             INSTANCE = instance
             instance
