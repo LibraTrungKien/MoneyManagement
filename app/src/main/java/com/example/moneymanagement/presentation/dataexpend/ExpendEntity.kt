@@ -15,9 +15,6 @@ data class ExpendEntity (
     val note: String?,
     val dateExpend: String,
     val timeExpend: String
-
-
-
 )
 
 

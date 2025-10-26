@@ -45,7 +45,7 @@ class AddNewViewModel : ViewModel() {
             timeExpend = timeExpend
         )
         CoroutineScope(Dispatchers.IO).launch {
-            appDatabase.ExpendDao().insertExpend(entity)
+            appDatabase.expendDao().insertExpend(entity)
 
         }
     }

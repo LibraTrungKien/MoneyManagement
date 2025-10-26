@@ -2,58 +2,37 @@ package com.example.moneymanagement.presentation.view.expendfragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.R
 import com.example.moneymanagement.presentation.dataexpend.AppDatabase
+import com.example.moneymanagement.presentation.dataexpend.ExpendDao
 import com.example.moneymanagement.presentation.dataexpend.ExpendEntity
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
 
-class ExpendViewModel() : ViewModel() {
+class ExpendViewModel : ViewModel() {
 
-    private val parentData = mutableListOf<TransactionParent>()
     private lateinit var appDatabase: AppDatabase
-    private val allExpend: LiveData<List<ExpendEntity>> = appDatabase.ExpendDao().getAll()
+    private lateinit var dao: ExpendDao
+    val expendList: LiveData<List<ExpendEntity>>
+        get() = dao.getAll()
 
     fun setAppDataBase(database: AppDatabase) {
         appDatabase = database
+        dao = appDatabase.expendDao()
     }
 
-
-    fun initData(): List<TransactionParent> {
-
-        allExpend.value.let {  }
-
-        val aprilTransactions = listOf(
-            TransactionChild(
-                imgCategory = R.drawable.ic_hmburger,
-                nameCategory = "Ăn uống",
-                contentCategory = "Bữa tối",
-                time = System.currentTimeMillis() - 1000000,
-                expendPrice = 8000
-            ),
-
-            TransactionChild(
-                imgCategory = R.drawable.ic_hmburger,
-                nameCategory = "Ăn uống",
-                contentCategory = "Bữa sáng",
-                time = System.currentTimeMillis() - 1000000,
-                expendPrice = 8000
-            ),
-
-            TransactionChild(
-                imgCategory = R.drawable.ic_hmburger,
-                nameCategory = "Ăn uống",
-                contentCategory = "Ăn lẩu",
-                time = System.currentTimeMillis() - 1000000,
-                expendPrice = 800000
-            ),
-        )
-
-        parentData.add( TransactionParent(date = "Apr - 2025",aprilTransactions ) )
-        parentData.add(TransactionParent("Apr 2024", aprilTransactions))
-
-        return parentData
+    fun initData(list: List<ExpendEntity>): List<TransactionParent> {
+        val grouped = list.groupBy { it.dateExpend }
+        return grouped.map { (date, items) ->
+            val children = items.map {
+                TransactionChild(
+                    imgCategory = it.imgTypeCategory,
+                    nameCategory = it.nameTypeCategory,
+                    note = it.note ?: "",
+                    time = it.timeExpend,
+                    expendPrice = it.amountExpend
+                )
+            }
+            TransactionParent(date, children)
+        }
     }
-
-
 }

@@ -9,9 +9,9 @@ data class TransactionParent(
 data class TransactionChild(
 
     val imgCategory: Int,
-    val nameCategory: String,
-    val contentCategory: String,
-    val time: Long,
+    val nameCategory: String?,
+    val note: String,
+    val time: String,
     val expendPrice: Int
 
 )

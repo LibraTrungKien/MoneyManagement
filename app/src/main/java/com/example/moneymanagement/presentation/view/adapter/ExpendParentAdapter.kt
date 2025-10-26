@@ -8,11 +8,16 @@ import com.example.moneymanagement.presentation.model.TransactionParent
 
 class ExpendParentAdapter(
     private val itemClick: OnClickItemTransaction,
-    private val data: List<TransactionParent>
+    private var data: List<TransactionParent>
 
 ) :RecyclerView.Adapter<ExpendParentAdapter.ExpendParentViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
+
+    fun setData(newData: List<TransactionParent>) {
+        data = newData
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpendParentViewHolder {
         val inflater = LayoutInflater.from(parent.context)

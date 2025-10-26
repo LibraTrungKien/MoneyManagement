@@ -34,7 +34,7 @@ class ExpendChildAdapter(
             binding.imgCategory.setImageResource(itemChild.imgCategory)
             binding.txtCategory.text = itemChild.nameCategory
             binding.txtTime.text = itemChild.time.toString()
-            binding.txtContentCategory.text = itemChild.contentCategory
+            binding.txtContentCategory.text = itemChild.note
             binding.txtPrice.text = itemChild.expendPrice.toString() + " vnđ"
 
             binding.root.setOnClickListener {

@@ -16,25 +16,9 @@ class LoanViewModel : ViewModel() {
             TransactionChild(
                 imgCategory = R.drawable.ic_hmburger,
                 nameCategory = "Ăn uống",
-                contentCategory = "Bữa tối",
-                time = System.currentTimeMillis() - 1000000,
+                note = "Bữa tối",
+                time = "10:22",
                 expendPrice = 8000
-            ),
-
-            TransactionChild(
-                imgCategory = R.drawable.ic_hmburger,
-                nameCategory = "Ăn uống",
-                contentCategory = "Bữa sáng",
-                time = System.currentTimeMillis() - 1000000,
-                expendPrice = 8000
-            ),
-
-            TransactionChild(
-                imgCategory = R.drawable.ic_hmburger,
-                nameCategory = "Ăn uống",
-                contentCategory = "Ăn lẩu",
-                time = System.currentTimeMillis() - 1000000,
-                expendPrice = 800000
             ),
         )
 
