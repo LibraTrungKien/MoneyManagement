@@ -8,10 +8,15 @@ import com.example.moneymanagement.presentation.model.TransactionParent
 
 class IncomeParentAdapter(
     private val onClickListner: OnClickItemTransaction,
-    private val data: List<TransactionParent>) :
+    private var data: List<TransactionParent>) :
     RecyclerView.Adapter<IncomeParentAdapter.ViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
+
+    fun setData(data: List<TransactionParent>){
+        this.data = data
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

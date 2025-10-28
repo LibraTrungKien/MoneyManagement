@@ -3,14 +3,15 @@ package com.example.moneymanagement.presentation.view.expendfragment
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.moneymanagement.databinding.ActivityTransactionsBinding
 import com.example.moneymanagement.databinding.FragmentExpendBinding
 import com.example.moneymanagement.presentation.dataexpend.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
-import com.example.moneymanagement.presentation.view.Utils
 import com.example.moneymanagement.presentation.view.adapter.ExpendParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnew.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.example.moneymanagement.presentation.view.transactions.TransactionsActivity
 
 class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding::inflate), OnClickItemTransaction {
 
@@ -29,7 +30,8 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         viewModel.setAppDataBase(appDatabase)
 
         viewModel.expendList.observe(viewLifecycleOwner) { expendEntities ->
-            val parentData = viewModel.initData(expendEntities)
+            val filteredType = expendEntities.filter { it.type == "expend" }
+            val parentData = viewModel.initData(filteredType)
             parentAdapter.setData(parentData)
         }
     }
@@ -49,13 +51,13 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
     }
 
     private fun addExpend(){
-        val key = Utils.ADD_EXPENSE.name
         val intent = Intent(requireContext(), AddNewActivity::class.java)
         startActivity(intent)
     }
 
     override fun onItemClick(item: TransactionChild) {
-        Toast.makeText(requireContext(), item.nameCategory, Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), TransactionsActivity::class.java)
+        startActivity(intent)
     }
 
 

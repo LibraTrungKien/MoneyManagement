@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".presentation.view.addnew.AddNewActivity"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".presentation.view.transactions.TransactionsActivity"/>
     </application>
 
 </manifest>

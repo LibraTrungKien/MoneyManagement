@@ -1,12 +1,7 @@
 package com.example.moneymanagement.presentation.view.addnewexpend
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R
-import com.example.moneymanagement.presentation.dataexpend.AppDatabase
-import com.example.moneymanagement.presentation.dataexpend.DataManager
-import com.example.moneymanagement.presentation.dataexpend.ExpendDao
-import com.example.moneymanagement.presentation.dataexpend.ExpendEntity
 import com.example.moneymanagement.presentation.model.Category
 
 class AddNewExpendViewModel() : ViewModel() {

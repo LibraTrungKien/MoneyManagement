@@ -1,13 +1,17 @@
 package com.example.moneymanagement.presentation.view.addnewloan
 
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewLoanBinding
+import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
 import com.example.moneymanagement.presentation.dataexpend.DataManager
 import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
+import com.example.moneymanagement.presentation.view.addnew.AddNewActivity
+import com.example.moneymanagement.presentation.view.addnew.AddNewViewModel
 import com.example.moneymanagement.presentation.view.addnewincome.AddNewIncomeViewModel
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
@@ -21,16 +25,26 @@ class AddNewLoanFragment :
     private lateinit var adapter: AddNewCategoryAdapter
     private lateinit var data: List<Category>
     private lateinit var viewModel: AddNewLoanViewModel
-    private var nameBudget: String? = null
     private var calendar = Calendar.getInstance()
+    private var nameBudget: String = ""
+    private var imgBudget: Int = 0
+    private var amountMoney: Int = 0
+    private var nameCategory: String = "None"
+    private var imgCategory: Int = 0
+    private lateinit var note: String
+    private lateinit var date: String
+    private lateinit var time: String
+    private lateinit var type: String
+
+    private val addNew: AddNewViewModel by activityViewModels()
 
 
     override fun initializeComponent() {
         viewModel = ViewModelProvider(this)[AddNewLoanViewModel::class.java]
 
-        val db = DataManager.getDataBase(requireContext())
-
-//        viewModel.setAppDataBase(db)
+        addNew.typeAddNew.observe(viewLifecycleOwner) {
+            type = it
+        }
 
         data = viewModel.initData()
         adapter = AddNewCategoryAdapter(data, this)
@@ -55,6 +69,9 @@ class AddNewLoanFragment :
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
+
+        time = "$hour:$minute"
+        date = "$day/$month/$year"
 
         binding.txtTime.text = "$hour:$minute"
         binding.txtDate.text = "$day/$month/$year"
@@ -101,7 +118,45 @@ class AddNewLoanFragment :
         item: Category,
         position: Int,
     ) {
-        Toast.makeText(requireContext(), item.typeCategory, Toast.LENGTH_SHORT).show()
+        nameCategory = item.typeCategory
+        imgCategory = item.imgTypeCategory
+    }
+
+
+    fun senDataLoan() {
+        val getMoney = binding.edtSetMoney.text.toString()
+        amountMoney = getMoney.toIntOrNull() ?: -1
+        note = binding.edtNote.text.toString()
+
+        if (amountMoney < 1000) {
+            Toast.makeText(requireContext(), "Money must not be less than 1000", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        if (imgCategory == 0) {
+            Toast.makeText(requireContext(), "please choose Category", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (nameBudget.isEmpty()) {
+            Toast.makeText(requireContext(), "Please choose Budget", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        val entity = AddNewEntity(
+            idExpend = 0,
+            type,
+            amountMoney,
+            nameCategory,
+            imgCategory,
+            nameBudget,
+            note,
+            date,
+            time
+        )
+        addNew.setDataList(listOf(entity))
     }
 
 }

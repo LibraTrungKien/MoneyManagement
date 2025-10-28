@@ -1,45 +1,54 @@
 package com.example.moneymanagement.presentation.view.addnew
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.presentation.dataexpend.AppDatabase
-import com.example.moneymanagement.presentation.dataexpend.ExpendEntity
+import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddNewViewModel : ViewModel() {
 
-    private var data = MutableLiveData<List<ExpendEntity>>()
+    private var data = MutableLiveData<List<AddNewEntity>>()
+    private var type = MutableLiveData<String>()
+    val typeAddNew: LiveData<String> get() = type
     private lateinit var appDatabase: AppDatabase
 
-    fun setDataList(list: List<ExpendEntity>) {
+    fun setDataList(list: List<AddNewEntity>) {
         data.value = list
     }
 
-    fun getDataList(): List<ExpendEntity>? = data.value
+    fun getDataList(): List<AddNewEntity>? = data.value
 
     fun setAppDataBase(database: AppDatabase) {
         appDatabase = database
     }
 
+    fun setType(value: String){
+        type.value = value
+    }
+
     fun insertExpendEntity(
         amountExpend: Int,
+        type: String,
         nameTypeCategory: String,
         imgTypeCategory: Int,
         nameBudget: String,
-        imgBudget: Int,
         note: String?,
         dateExpend: String,
-        timeExpend: String
+        timeExpend: String,
+
     ) {
-        val entity = ExpendEntity(
+        val entity = AddNewEntity(
             idExpend = 0,
+            type = type,
             amountExpend = amountExpend,
             nameTypeCategory = nameTypeCategory,
             imgTypeCategory = imgTypeCategory,
             nameBudget = nameBudget,
-            imgBudget = imgBudget,
             note = note,
             dateExpend = dateExpend,
             timeExpend = timeExpend

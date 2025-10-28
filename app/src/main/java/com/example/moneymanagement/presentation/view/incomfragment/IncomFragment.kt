@@ -1,39 +1,46 @@
 package com.example.moneymanagement.presentation.view.incomfragment
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentIncomeBinding
+import com.example.moneymanagement.presentation.dataexpend.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
 import com.example.moneymanagement.presentation.view.adapter.IncomeParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
+import com.example.moneymanagement.presentation.view.addnew.AddNewActivity
+import com.example.moneymanagement.presentation.view.addnewincome.FragmentAddNewIncome
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import kotlin.getValue
 
-class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding::inflate) {
+class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding::inflate),
+    OnClickItemTransaction {
 
-    private val viewModel: IncomeViewModel by viewModels()
+    private lateinit var viewModel: IncomeViewModel
 
     private lateinit var adapter: IncomeParentAdapter
 
-    private lateinit var data: List<TransactionParent>
-
     override fun initializeComponent() {
 
-        val onItemClick = object : OnClickItemTransaction {
-            override fun onItemClick(item: TransactionChild) {
-                Toast.makeText(requireContext(), item.nameCategory, Toast.LENGTH_LONG).show()
-            }
+        viewModel = ViewModelProvider(this)[IncomeViewModel::class.java]
 
-        }
-
-        data = viewModel.initData()
-        adapter = IncomeParentAdapter(onItemClick, data)
+        adapter = IncomeParentAdapter(this, emptyList())
         binding.lstHistoryIncome.adapter = adapter
+
+        val appDatabase = DataManager.getDataBase(requireContext())
+        viewModel.setAppDataBase(appDatabase)
+
+        viewModel.incomeList.observe(viewLifecycleOwner) { incomeEntities ->
+            val filteredType = incomeEntities.filter { it.type == "income" }
+            val parentData = viewModel.initData(filteredType)
+           adapter.setData(parentData)
+        }
     }
 
     override fun initializeEvents() {
-        super.initializeEvents()
+        binding.btnAddInCome.setOnClickListener { addIncome() }
     }
 
     override fun initializeData() {
@@ -41,6 +48,15 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
 
     override fun bindView() {
         super.bindView()
+    }
+
+    private fun addIncome() {
+        val intent = Intent(requireContext(), AddNewActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onItemClick(item: TransactionChild) {
+        println(item.nameCategory)
     }
 
 }

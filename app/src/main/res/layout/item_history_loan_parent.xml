@@ -38,6 +38,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:listitem="@layout/item_history_income_child"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

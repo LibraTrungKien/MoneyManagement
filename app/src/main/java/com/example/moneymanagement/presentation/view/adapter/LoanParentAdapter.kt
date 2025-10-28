@@ -7,10 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryLoanParentBinding
 import com.example.moneymanagement.presentation.model.TransactionParent
 
-class LoanParentAdapter(private val data: List<TransactionParent>) :
+class LoanParentAdapter(
+    private var data: List<TransactionParent>,
+    private val onItemClickListener: OnClickItemTransaction
+) :
     RecyclerView.Adapter<LoanParentAdapter.ViewHolder>() {
 
     private var viewPool = RecyclerView.RecycledViewPool()
+
+    fun setData(data: List<TransactionParent>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

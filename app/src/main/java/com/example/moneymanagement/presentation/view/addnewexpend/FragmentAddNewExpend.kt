@@ -1,10 +1,11 @@
 package com.example.moneymanagement.presentation.view.addnewexpend
 
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewExpendBinding
-import com.example.moneymanagement.presentation.dataexpend.ExpendEntity
+import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
 import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
@@ -31,12 +32,20 @@ class FragmentAddNewExpend :
     private lateinit var note: String
     private lateinit var date: String
     private lateinit var time: String
+    private lateinit var type: String
 
     private val addNew: AddNewViewModel by activityViewModels()
 
     override fun initializeComponent() {
+
+        addNew.typeAddNew.observe(viewLifecycleOwner) {
+            type = it
+            Log.d("expend", type)
+        }
+
         viewModel = ViewModelProvider(this)[AddNewExpendViewModel::class.java]
         data = viewModel.initData()
+
         adapter = AddNewCategoryAdapter(data, this)
         binding.lstCategory.adapter = adapter
     }
@@ -45,10 +54,10 @@ class FragmentAddNewExpend :
         binding.btnBudget.setOnClickListener { showBudgetBottomSheet() }
         binding.btnTime.setOnClickListener { setTimeBottomSheet() }
         binding.btnCalender.setOnClickListener { setDateBottomSheet() }
-
     }
 
     override fun initializeData() {
+
     }
 
     override fun bindView() {
@@ -112,13 +121,14 @@ class FragmentAddNewExpend :
         Toast.makeText(requireContext(), nameCategory + imgCategory, Toast.LENGTH_SHORT).show()
     }
 
-    fun sendData() {
+    fun sendDataExpend() {
         note = binding.edtNote.text.toString()
         val setMoney = binding.edtSetMoney.text.toString()
         amountMoney = setMoney.toIntOrNull() ?: -1
 
         if (amountMoney < 0 || amountMoney == 0) {
-            Toast.makeText(requireContext(), "Money must not be less than 0", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Money must not be less than 0", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
@@ -132,13 +142,13 @@ class FragmentAddNewExpend :
             return
         }
 
-        val expend = ExpendEntity(
+        val expend = AddNewEntity(
             idExpend = 0,
+            type,
             amountMoney,
             nameCategory,
             imgCategory,
             nameBudget,
-            imgBudget,
             note,
             date,
             time

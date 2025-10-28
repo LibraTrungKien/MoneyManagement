@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,6 @@ class AddNewCategoryAdapter(
         holder.bindView(data[position])
 
         holder.binding.imgCategory.isSelected = (position == selectedPosition)
-
     }
 
     override fun getItemCount(): Int = data.size
@@ -42,8 +42,6 @@ class AddNewCategoryAdapter(
                 }
             }
         }
-
-
         fun bindView(category: Category) {
             binding.imgCategory.setImageResource(category.imgTypeCategory)
             binding.txtNameTypeCategory.text = category.typeCategory

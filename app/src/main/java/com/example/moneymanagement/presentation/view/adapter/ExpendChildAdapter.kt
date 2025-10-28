@@ -33,9 +33,9 @@ class ExpendChildAdapter(
         fun bindView(itemChild: TransactionChild) {
             binding.imgCategory.setImageResource(itemChild.imgCategory)
             binding.txtCategory.text = itemChild.nameCategory
-            binding.txtTime.text = itemChild.time.toString()
+            binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
-            binding.txtPrice.text = itemChild.expendPrice.toString() + " vnđ"
+            binding.txtPrice.text = " - " + itemChild.expendPrice.toString() + " vnđ"
 
             binding.root.setOnClickListener {
                 itemClick.onItemClick(itemChild)
