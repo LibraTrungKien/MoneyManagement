@@ -12,6 +12,6 @@ data class TransactionChild(
     val nameCategory: String?,
     val note: String,
     val time: String,
-    val expendPrice: Int
-
+    val expendPrice: Int,
+    val nameBudget: String
 )

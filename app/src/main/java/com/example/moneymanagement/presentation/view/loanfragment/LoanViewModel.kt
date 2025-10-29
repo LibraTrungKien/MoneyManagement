@@ -2,10 +2,9 @@ package com.example.moneymanagement.presentation.view.loanfragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.R
-import com.example.moneymanagement.presentation.dataexpend.AddNewDao
-import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
-import com.example.moneymanagement.presentation.dataexpend.AppDatabase
+import com.example.moneymanagement.presentation.database.AddNewDao
+import com.example.moneymanagement.presentation.database.AddNewEntity
+import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
 
@@ -32,7 +31,8 @@ class LoanViewModel : ViewModel() {
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",
                     time = it.timeExpend,
-                    expendPrice = it.amountExpend
+                    expendPrice = it.amountExpend,
+                    nameBudget = it.nameBudget
                 )
             }
             TransactionParent(date, child)

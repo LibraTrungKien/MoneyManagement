@@ -1,6 +1,9 @@
 package com.example.moneymanagement.presentation.view.homeactivity
 
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivityHomeBinding
 import com.example.moneymanagement.presentation.view.adapter.HomeAdapter
@@ -14,6 +17,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private var initMoneyVisible = true
 
     override fun initializeComponent() {
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
         adapter = HomeAdapter(this)
         binding.viewPager.adapter = adapter
 

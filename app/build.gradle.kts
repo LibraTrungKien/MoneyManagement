@@ -41,15 +41,25 @@ android {
 }
 
 dependencies {
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.google.code.gson:gson:2.13.2")
+
     implementation("androidx.room:room-runtime:2.8.1")
     ksp("androidx.room:room-compiler:2.8.1")
     implementation("androidx.room:room-ktx:2.8.1")
+
     implementation("com.intuit.sdp:sdp-android:1.1.1")
     implementation("com.intuit.ssp:ssp-android:1.1.1")
+
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
     implementation(libs.androidx.core.ktx)
+
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
     implementation("io.github.ShawnLin013:number-picker:2.4.13")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

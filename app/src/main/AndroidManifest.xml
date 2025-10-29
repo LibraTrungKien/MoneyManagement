@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyManagement">
         <activity
-            android:name=".presentation.view.homeactivity.HomeActivity"
+            android:name=".presentation.view.splashactivity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.view.addnew.AddNewActivity"
+        <activity android:name=".presentation.view.addnewactivity.AddNewActivity"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".presentation.view.transactions.TransactionsActivity"/>
+        <activity android:name=".presentation.view.transactionsactivity.TransactionsActivity"/>
+        <activity android:name=".presentation.view.homeactivity.HomeActivity"/>
     </application>
 
 </manifest>

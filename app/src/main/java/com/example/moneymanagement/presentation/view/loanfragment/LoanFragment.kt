@@ -1,16 +1,14 @@
 package com.example.moneymanagement.presentation.view.loanfragment
 
 import android.content.Intent
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentLoanBinding
-import com.example.moneymanagement.presentation.dataexpend.DataManager
+import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
 import com.example.moneymanagement.presentation.view.adapter.LoanParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
-import com.example.moneymanagement.presentation.view.addnew.AddNewActivity
+import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 
 class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::inflate),

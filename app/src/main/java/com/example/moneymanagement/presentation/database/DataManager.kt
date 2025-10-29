@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.dataexpend
+package com.example.moneymanagement.presentation.database
 
 import android.content.Context
 import androidx.room.Room

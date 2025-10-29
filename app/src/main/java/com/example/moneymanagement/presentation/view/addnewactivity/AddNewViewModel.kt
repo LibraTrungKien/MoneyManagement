@@ -1,11 +1,10 @@
-package com.example.moneymanagement.presentation.view.addnew
+package com.example.moneymanagement.presentation.view.addnewactivity
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.presentation.dataexpend.AppDatabase
-import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
+import com.example.moneymanagement.presentation.database.AppDatabase
+import com.example.moneymanagement.presentation.database.AddNewEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

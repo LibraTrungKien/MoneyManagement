@@ -1,19 +1,14 @@
 package com.example.moneymanagement.presentation.view.incomfragment
 
 import android.content.Intent
-import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentIncomeBinding
-import com.example.moneymanagement.presentation.dataexpend.DataManager
+import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
-import com.example.moneymanagement.presentation.model.TransactionParent
 import com.example.moneymanagement.presentation.view.adapter.IncomeParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
-import com.example.moneymanagement.presentation.view.addnew.AddNewActivity
-import com.example.moneymanagement.presentation.view.addnewincome.FragmentAddNewIncome
+import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
-import kotlin.getValue
 
 class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding::inflate),
     OnClickItemTransaction {

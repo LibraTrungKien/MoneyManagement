@@ -1,12 +1,12 @@
-package com.example.moneymanagement.presentation.view.addnew
+package com.example.moneymanagement.presentation.view.addnewactivity
 
-import android.util.Log
-import com.example.moneymanagement.R
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.example.moneymanagement.databinding.ActivityAddNewBinding
-import com.example.moneymanagement.presentation.dataexpend.DataManager
+import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.adapter.AddNewAdapter
 import com.example.moneymanagement.presentation.view.addnewexpend.FragmentAddNewExpend
 import com.example.moneymanagement.presentation.view.addnewincome.FragmentAddNewIncome
@@ -22,6 +22,13 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
 
     override fun initializeComponent() {
         super.initializeComponent()
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
         adapter = AddNewAdapter(this)
         binding.viewPagerAddNew.adapter = adapter

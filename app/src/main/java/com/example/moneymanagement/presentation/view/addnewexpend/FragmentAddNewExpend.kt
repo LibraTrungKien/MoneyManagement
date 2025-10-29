@@ -5,12 +5,12 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewExpendBinding
-import com.example.moneymanagement.presentation.dataexpend.AddNewEntity
+import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.model.Category
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
-import com.example.moneymanagement.presentation.view.addnew.AddNewViewModel
+import com.example.moneymanagement.presentation.view.addnewactivity.AddNewViewModel
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
 import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetTimeBottomSheetDialog
