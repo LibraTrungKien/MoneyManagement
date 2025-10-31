@@ -27,6 +27,8 @@ class LoanViewModel : ViewModel() {
         return parent.map { (date , item) ->
             val child = item.map {
                 TransactionChild(
+                    id = it.idExpend,
+                    type = it.type,
                     imgCategory = it.imgTypeCategory,
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",

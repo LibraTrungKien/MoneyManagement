@@ -25,6 +25,8 @@ class ExpendViewModel : ViewModel() {
         return parent.map { (date, items) ->
             val children = items.map {
                 TransactionChild(
+                    id = it.idExpend,
+                    type = it.type,
                     imgCategory = it.imgTypeCategory,
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",

@@ -1,14 +1,13 @@
 package com.example.moneymanagement.presentation.view.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemAddNewCategoryBinding
-import com.example.moneymanagement.presentation.model.Category
+import com.example.moneymanagement.presentation.model.CategoryModel
 
 class AddNewCategoryAdapter(
-    val data: List<Category>,
+    val data: List<CategoryModel>,
     val onClickListener: OnClickItemAddNew
 ) : RecyclerView.Adapter<AddNewCategoryAdapter.ViewHolder>() {
 
@@ -42,7 +41,7 @@ class AddNewCategoryAdapter(
                 }
             }
         }
-        fun bindView(category: Category) {
+        fun bindView(category: CategoryModel) {
             binding.imgCategory.setImageResource(category.imgTypeCategory)
             binding.txtNameTypeCategory.text = category.typeCategory
         }

@@ -3,6 +3,7 @@ package com.example.moneymanagement.presentation.view.loanfragment
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentLoanBinding
+import com.example.moneymanagement.presentation.Utils
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
@@ -10,6 +11,8 @@ import com.example.moneymanagement.presentation.view.adapter.LoanParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
+import com.google.gson.Gson
 
 class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::inflate),
     OnClickItemTransaction {
@@ -52,8 +55,11 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
     }
 
     override fun onItemClick(item: TransactionChild) {
-        TODO("Not yet implemented")
-    }
+        val gson = Gson()
+        val value = gson.toJson(item)
+        val intent = Intent(requireContext(), TransactionsActivity::class.java)
+        intent.putExtra(Utils.ITEM_HISTORY_LOAN.name, value)
+        startActivity(intent)    }
 
 
 }

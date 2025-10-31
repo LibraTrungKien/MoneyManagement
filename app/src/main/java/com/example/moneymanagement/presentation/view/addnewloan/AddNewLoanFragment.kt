@@ -5,14 +5,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewLoanBinding
 import com.example.moneymanagement.presentation.database.AddNewEntity
-import com.example.moneymanagement.presentation.model.Category
-import com.example.moneymanagement.presentation.view.bottomsheetdialog.BudgetBottomSheet
+import com.example.moneymanagement.presentation.model.CategoryModel
+import com.example.moneymanagement.presentation.view.dialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewViewModel
 import com.example.moneymanagement.presentation.view.base.BaseFragment
-import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetDateBottomSheetDialog
-import com.example.moneymanagement.presentation.view.bottomsheetdialog.SetTimeBottomSheetDialog
+import com.example.moneymanagement.presentation.view.dialog.SetDateBottomSheetDialog
+import com.example.moneymanagement.presentation.view.dialog.SetTimeBottomSheetDialog
 import java.util.Calendar
 
 class AddNewLoanFragment :
@@ -20,7 +20,7 @@ class AddNewLoanFragment :
     OnClickItemAddNew {
 
     private lateinit var adapter: AddNewCategoryAdapter
-    private lateinit var data: List<Category>
+    private lateinit var data: List<CategoryModel>
     private lateinit var viewModel: AddNewLoanViewModel
     private var calendar = Calendar.getInstance()
     private var nameBudget: String = ""
@@ -112,7 +112,7 @@ class AddNewLoanFragment :
     }
 
     override fun onClickListenerCategory(
-        item: Category,
+        item: CategoryModel,
         position: Int,
     ) {
         nameCategory = item.typeCategory

@@ -8,6 +8,8 @@ data class TransactionParent(
 
 data class TransactionChild(
 
+    val id : Int,
+    val type: String,
     val imgCategory: Int,
     val nameCategory: String?,
     val note: String,

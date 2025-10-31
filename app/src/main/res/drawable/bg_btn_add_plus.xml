@@ -5,9 +5,9 @@
     <solid android:color="#B288ED" />
 
     <padding
-        android:bottom="8dp"
+        android:bottom="10dp"
         android:left="8dp"
         android:right="8dp"
-        android:top="8dp"/>
+        android:top="10dp"/>
 
 </shape>

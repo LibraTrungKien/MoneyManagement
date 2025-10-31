@@ -26,7 +26,9 @@ class IncomeViewModel : ViewModel() {
         return parent.map { (date, items) ->
             val children = items.map {
                 TransactionChild(
+                    id = it.idExpend,
                     imgCategory = it.imgTypeCategory,
+                    type = it.type,
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",
                     time = it.timeExpend,

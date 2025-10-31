@@ -1,10 +1,10 @@
 package com.example.moneymanagement.presentation.view.adapter
 
-import com.example.moneymanagement.presentation.model.Category
+import com.example.moneymanagement.presentation.model.CategoryModel
 
 interface OnClickItemAddNew {
 
-    fun onClickListenerCategory(item: Category, position: Int)
+    fun onClickListenerCategory(item: CategoryModel, position: Int)
 
     fun onClickListenerBudget(nameBudget : String)
 

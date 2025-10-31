@@ -1,5 +1,9 @@
 package com.example.moneymanagement.presentation.view.homeactivity
 
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -8,6 +12,7 @@ import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivityHomeBinding
 import com.example.moneymanagement.presentation.view.adapter.HomeAdapter
 import com.example.moneymanagement.presentation.view.base.BaseActivity
+import com.example.moneymanagement.presentation.view.popup.SelectionYearPopup
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -15,6 +20,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     private lateinit var adapter: HomeAdapter
     private var initMoneyVisible = true
+    private var yearPopup: SelectionYearPopup? = null
 
     override fun initializeComponent() {
 
@@ -41,6 +47,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     override fun initializeEvents() {
         totalMoneyVisibility()
         menu()
+        binding.btnMonthSelection.setOnClickListener { showYearPopup() }
     }
 
 
@@ -89,6 +96,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
             binding.txtTotalMoney.text = "*** *** ***"
         }
+    }
+
+    private fun showYearPopup() {
+        if (yearPopup == null) {
+            yearPopup = SelectionYearPopup(this, this)
+        }
+        yearPopup?.showPopup(binding.btnMonthSelection)
     }
 
 }
