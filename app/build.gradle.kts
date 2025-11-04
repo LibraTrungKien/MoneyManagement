@@ -61,6 +61,9 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("io.github.ShawnLin013:number-picker:2.4.13")
+
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)

@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.view.homeactivity
 
+import android.content.Intent
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.moneymanagement.databinding.ActivityHomeBinding
 import com.example.moneymanagement.presentation.view.adapter.HomeAdapter
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.example.moneymanagement.presentation.view.popup.SelectionYearPopup
+import com.example.moneymanagement.presentation.view.staticactivity.StaticActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -48,6 +50,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         totalMoneyVisibility()
         menu()
         binding.btnMonthSelection.setOnClickListener { showYearPopup() }
+        setupNavigationViewListener()
     }
 
 
@@ -103,6 +106,39 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             yearPopup = SelectionYearPopup(this, this)
         }
         yearPopup?.showPopup(binding.btnMonthSelection)
+    }
+
+
+    private fun setupNavigationViewListener(){
+        binding.navMenu.setNavigationItemSelectedListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            when (it.itemId) {
+
+                R.id.statistics -> {
+                    val intent = Intent(this, StaticActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_budget -> {
+                    // TODO: Điều hướng sang màn hình Ngân sách
+                    true
+                }
+
+                R.id.nav_currency -> {
+                    // TODO: Mở tùy chọn tiền tệ
+                    true
+                }
+
+                R.id.nav_language -> {
+                    // TODO: Mở tùy chọn ngôn ngữ
+                    true
+                }
+
+                else -> false
+            }
+
+        }
     }
 
 }

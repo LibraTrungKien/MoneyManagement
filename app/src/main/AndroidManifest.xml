@@ -24,6 +24,7 @@
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".presentation.view.transactionsactivity.TransactionsActivity"/>
         <activity android:name=".presentation.view.homeactivity.HomeActivity"/>
+        <activity android:name=".presentation.view.staticactivity.StaticActivity"/>
     </application>
 
 </manifest>

@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryLoanChildBinding
 import com.example.moneymanagement.presentation.model.TransactionChild
 
-class LoanChildAdapter(val data: List<TransactionChild>): RecyclerView.Adapter<LoanChildAdapter.ViewHolder>() {
+class LoanChildAdapter(
+    val data: List<TransactionChild>,
+    private val onItemClick: OnClickItemTransaction,
+) : RecyclerView.Adapter<LoanChildAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,7 +30,8 @@ class LoanChildAdapter(val data: List<TransactionChild>): RecyclerView.Adapter<L
     override fun getItemCount(): Int = data.size
 
 
-    inner class ViewHolder(val binding : ItemHistoryLoanChildBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemHistoryLoanChildBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(itemChild: TransactionChild) {
             binding.imgCategory.setImageResource(itemChild.imgCategory)
@@ -35,6 +39,10 @@ class LoanChildAdapter(val data: List<TransactionChild>): RecyclerView.Adapter<L
             binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
             binding.txtPrice.text = itemChild.expendPrice.toString() + "vnđ"
+
+            binding.root.setOnClickListener {
+                onItemClick.onItemClick(itemChild)
+            }
         }
 
 

@@ -48,7 +48,7 @@ class LoanParentAdapter(
         fun bindView(itemParent: TransactionParent) {
             binding.txtDateParent.text = itemParent.date
 
-            val adapter = LoanChildAdapter(itemParent.child)
+            val adapter = LoanChildAdapter(itemParent.child, onItemClickListener)
             binding.listHistoryLoanChild.adapter = adapter
 
             binding.listHistoryLoanChild.setRecycledViewPool(viewPool)

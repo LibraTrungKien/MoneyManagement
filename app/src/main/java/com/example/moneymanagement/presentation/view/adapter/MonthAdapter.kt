@@ -37,7 +37,6 @@ class MonthAdapter(
 
     inner class ViewHolder(val binding: ItemMonthBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
         init {
             binding.txtMonth.setOnClickListener {
                 if(absoluteAdapterPosition != RecyclerView.NO_POSITION){
@@ -45,7 +44,7 @@ class MonthAdapter(
                     selectedPosition = absoluteAdapterPosition
                     notifyItemChanged(previousPosition)
                     notifyItemChanged(selectedPosition)
-                    onClickListener.onClickListenerCategory(data[absoluteAdapterPosition], absoluteAdapterPosition)
+                    onClickListener.onClickListenerCategory(data[absoluteAdapterPosition], absoluteAdapterPosition + 1)
                 }
 
             }

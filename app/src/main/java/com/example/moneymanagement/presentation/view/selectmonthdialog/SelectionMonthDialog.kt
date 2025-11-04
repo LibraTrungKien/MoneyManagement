@@ -20,7 +20,7 @@ import java.util.Calendar
 class SelectionYearPopup(
     private val context: Context,
     private val owner: ViewModelStoreOwner,
-    ) : PopupWindow(
+) : PopupWindow(
     ViewGroup.LayoutParams.WRAP_CONTENT,
     ViewGroup.LayoutParams.WRAP_CONTENT
 ), OnClickItemMonth {
@@ -30,13 +30,12 @@ class SelectionYearPopup(
 
     private var calendar = Calendar.getInstance()
     private var calendarYear = calendar.get(Calendar.YEAR)
-    private lateinit var adapter: MonthAdapter
-    private lateinit var viewModel: SelectionMonthViewModel
-    private lateinit var data: List<MonthModel>
+    private var adapter: MonthAdapter
+    private var viewModel: SelectionMonthViewModel
+    private var data: List<MonthModel>
 
     init {
         contentView = binding.root
-
         isFocusable = true
         isOutsideTouchable = true
         elevation = 10f
@@ -49,8 +48,6 @@ class SelectionYearPopup(
         binding.lstMonth.adapter = adapter
 
         binding.txtYear.text = calendarYear.toString()
-
-
 
         binding.btnRight.setOnClickListener {
             calendarYear++
@@ -75,12 +72,7 @@ class SelectionYearPopup(
         showAsDropDown(view, 0, -50);
     }
 
-    override fun onClickListenerCategory(
-        item: MonthModel,
-        position: Int
-    ) {
-        Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-    }
+    override fun onClickListenerCategory(item: MonthModel, position: Int) {}
 
 
 }

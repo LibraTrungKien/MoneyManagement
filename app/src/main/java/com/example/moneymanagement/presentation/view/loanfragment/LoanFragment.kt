@@ -59,7 +59,8 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
         val value = gson.toJson(item)
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
         intent.putExtra(Utils.ITEM_HISTORY_LOAN.name, value)
-        startActivity(intent)    }
+        startActivity(intent)
+    }
 
 
 }
