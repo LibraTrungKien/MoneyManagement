@@ -1,6 +1,5 @@
 package com.example.moneymanagement.presentation.view.addnewexpend
 
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +15,7 @@ import com.example.moneymanagement.presentation.view.dialog.SetDateBottomSheetDi
 import com.example.moneymanagement.presentation.view.dialog.SetTimeBottomSheetDialog
 import java.util.Calendar
 
-class FragmentAddNewExpend :
+class AddNewExpendFragment :
     BaseFragment<FragmentAddNewExpendBinding>(FragmentAddNewExpendBinding::inflate),
     OnClickItemAddNew {
 

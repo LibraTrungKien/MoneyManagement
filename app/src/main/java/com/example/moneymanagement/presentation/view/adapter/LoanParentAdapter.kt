@@ -41,7 +41,6 @@ class LoanParentAdapter(
         return data.size
     }
 
-
     inner class ViewHolder(val binding: ItemHistoryLoanParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

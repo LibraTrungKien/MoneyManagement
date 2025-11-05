@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +39,14 @@ class LoanChildAdapter(
             binding.txtCategory.text = itemChild.nameCategory
             binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
-            binding.txtPrice.text = itemChild.expendPrice.toString() + "vnđ"
+
+            if(itemChild.nameCategory == "Bills"){
+                binding.txtPrice.text = "+" + itemChild.expendPrice.toString() + "vnđ"
+                binding.txtPrice.setTextColor(Color.parseColor("#4CAF50"))
+            } else {
+                binding.txtPrice.text = "-" + itemChild.expendPrice.toString() + "vnđ"
+                binding.txtPrice.setTextColor(Color.parseColor("#F44336"))
+            }
 
             binding.root.setOnClickListener {
                 onItemClick.onItemClick(itemChild)

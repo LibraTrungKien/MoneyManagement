@@ -7,6 +7,11 @@ import com.example.moneymanagement.presentation.database.AddNewDao
 import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.model.TransactionParent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.collections.component1
+import kotlin.collections.component2
 
 class ExpendViewModel : ViewModel() {
 
@@ -21,7 +26,7 @@ class ExpendViewModel : ViewModel() {
     }
 
     fun initData(list: List<AddNewEntity>): List<TransactionParent> {
-        val parent = list.groupBy {it.dateExpend}
+        val parent = list.groupBy { it.dateExpend }
         return parent.map { (date, items) ->
             val children = items.map {
                 TransactionChild(

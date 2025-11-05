@@ -2,6 +2,7 @@ package com.example.moneymanagement.presentation.view.expendfragment
 
 import android.content.Intent
 import android.util.Log
+import androidx.annotation.LongDef
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentExpendBinding
 import com.example.moneymanagement.presentation.Utils
@@ -13,8 +14,13 @@ import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivi
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding::inflate), OnClickItemTransaction {
+class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding::inflate),
+    OnClickItemTransaction {
 
     private lateinit var viewModel: ExpendViewModel
 
@@ -41,6 +47,17 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         binding.btnAddExpand.setOnClickListener {
             addExpend()
         }
+
+        binding.edtSearch.setOnEditorActionListener { textView, actionId, event ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
+                actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+            ) {
+                searchHistory()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun initializeData() {
@@ -51,7 +68,7 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         super.bindView()
     }
 
-    private fun addExpend(){
+    private fun addExpend() {
         val intent = Intent(requireContext(), AddNewActivity::class.java)
         startActivity(intent)
     }
@@ -64,5 +81,26 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         startActivity(intent)
     }
 
+    private fun searchHistory() {
+        val search = binding.edtSearch.text.toString()
+        if (search.isEmpty()) {
+            viewModel.expendList.observe(viewLifecycleOwner) { expendEntities ->
+                val filteredType = expendEntities.filter { it.type == "expend" }
+                val parentData = viewModel.initData(filteredType)
+                parentAdapter.setData(parentData)
+            }
+        } else {
+            viewModel.expendList.observe(viewLifecycleOwner) { expendEntities ->
+                val filteredType = expendEntities.filter {
+                    it.type == "expend" && it.nameTypeCategory.contains(search)
+                }
+                val parentData = viewModel.initData(filteredType)
+                parentAdapter.setData(parentData)
+            }
+        }
+    }
+
 
 }
+
+

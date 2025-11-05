@@ -17,7 +17,7 @@ import com.example.moneymanagement.presentation.view.dialog.SetTimeBottomSheetDi
 import java.util.Calendar
 import kotlin.getValue
 
-class FragmentAddNewIncome :
+class AddNewIncomeFragment :
     BaseFragment<FragmentAddNewIncomeBinding>(FragmentAddNewIncomeBinding::inflate),
     OnClickItemAddNew {
 

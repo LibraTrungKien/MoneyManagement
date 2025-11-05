@@ -33,12 +33,23 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
         viewModel.incomeList.observe(viewLifecycleOwner) { incomeEntities ->
             val filteredType = incomeEntities.filter { it.type == "income" }
             val parentData = viewModel.initData(filteredType)
-           adapter.setData(parentData)
+            adapter.setData(parentData)
         }
     }
 
     override fun initializeEvents() {
         binding.btnAddInCome.setOnClickListener { addIncome() }
+
+        binding.edtSearch.setOnEditorActionListener { textView, actionId, event ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
+                actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+            ) {
+                searchHistory()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun initializeData() {
@@ -59,6 +70,25 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
         intent.putExtra(Utils.ITEM_HISTORY_INCOME.name, value)
         startActivity(intent)
+    }
+
+    private fun searchHistory() {
+        val search = binding.edtSearch.text.toString()
+        if (search.isEmpty()) {
+            viewModel.incomeList.observe(viewLifecycleOwner) { incomeEntities ->
+                val filteredType = incomeEntities.filter { it.type == "income" }
+                val parentData = viewModel.initData(filteredType)
+                adapter.setData(parentData)
+            }
+        } else {
+            viewModel.incomeList.observe(viewLifecycleOwner) { incomeEntities ->
+                val filteredType = incomeEntities.filter {
+                    it.type == "income" && it.nameTypeCategory.contains(search)
+                }
+                val parentData = viewModel.initData(filteredType)
+                adapter.setData(parentData)
+            }
+        }
     }
 
 }

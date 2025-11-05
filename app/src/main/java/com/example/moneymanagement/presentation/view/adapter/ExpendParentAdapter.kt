@@ -15,6 +15,7 @@ class ExpendParentAdapter(
     private val viewPool = RecyclerView.RecycledViewPool()
 
     fun setData(newData: List<TransactionParent>) {
+        data = emptyList()
         data = newData
         notifyDataSetChanged()
     }

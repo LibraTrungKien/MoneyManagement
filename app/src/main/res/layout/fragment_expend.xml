@@ -57,7 +57,9 @@
                 android:fontFamily="@font/urbanist_500"
                 android:hint="Search"
                 android:textColor="@color/black"
+                android:imeOptions="actionSearch"
                 android:textColorHint="@color/black"
+                android:inputType="text"
                 android:textSize="14sp" />
 
             <TextView

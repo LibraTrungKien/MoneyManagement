@@ -21,7 +21,7 @@ class TransactionsActivity :
 
     private lateinit var data: TransactionChild
     private lateinit var viewModel: TransactionsViewModel
-    private lateinit var value : String
+    private lateinit var value: String
 
     override fun initializeComponent() {
         super.initializeComponent()
@@ -29,8 +29,8 @@ class TransactionsActivity :
         viewModel = ViewModelProvider(this)[TransactionsViewModel::class.java]
 
         val expendValue = intent.getStringExtra(Utils.ITEM_HISTORY_EXPEND.name)
-        val incomeValue  = intent.getStringExtra(Utils.ITEM_HISTORY_INCOME.name)
-        val loanValue =  intent.getStringExtra(Utils.ITEM_HISTORY_LOAN.name)
+        val incomeValue = intent.getStringExtra(Utils.ITEM_HISTORY_INCOME.name)
+        val loanValue = intent.getStringExtra(Utils.ITEM_HISTORY_LOAN.name)
 
         if (expendValue != null) {
             value = expendValue;
@@ -59,16 +59,30 @@ class TransactionsActivity :
     }
 
     override fun bindView() {
+        var money: String = ""
+        var color: Int = 0
+
         binding.imgCategoryMain.setImageResource(data.imgCategory)
         binding.txtNameTypeCategory.text = data.nameCategory
-        if (data.type == "expend"){
-            binding.txtPrice.text = "- " + data.expendPrice.toString() + "vnđ"
-            binding.txtPrice.setTextColor(Color.parseColor("#F44336"))
+
+        if (data.type == "expend") {
+            money = "- ${data.expendPrice} vnđ"
+            color = (Color.parseColor("#F44336"))
+        } else if (data.type == "income") {
+            money = "- ${data.expendPrice} vnđ"
+            color = (Color.parseColor("#4CAF50"))
         } else {
-            binding.txtPrice.text = "+ " + data.expendPrice.toString() + "vnđ"
-            binding.txtPrice.setTextColor(Color.parseColor("#4CAF50"))
+            if (data.nameCategory == "Bills") {
+                money = "- ${data.expendPrice} vnđ"
+                color = (Color.parseColor("#4CAF50"))
+            } else {
+                money = "- ${data.expendPrice} vnđ"
+                color = (Color.parseColor("#F44336"))
+            }
         }
 
+        binding.txtPrice.text = money
+        binding.txtPrice.setTextColor(color)
         binding.txtdate.text = data.time
         binding.imgCategory.setImageResource(data.imgCategory)
         binding.txtNameCategory.text = data.nameCategory
@@ -80,7 +94,8 @@ class TransactionsActivity :
 
     private fun deleteItem() {
 
-        val dialog = AlertDialog.Builder(this).setTitle("Delete").setMessage("Do you want to delete this item")
+        val dialog = AlertDialog.Builder(this).setTitle("Delete")
+            .setMessage("Do you want to delete this item")
             .setPositiveButton("Delete") { dialog, it ->
                 viewModel.delete(data.id)
                 finish()

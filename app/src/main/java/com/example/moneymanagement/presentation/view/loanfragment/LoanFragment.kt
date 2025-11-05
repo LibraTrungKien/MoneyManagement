@@ -44,6 +44,19 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
             val intent = Intent(requireContext(), AddNewActivity::class.java)
             startActivity(intent)
         }
+
+        binding.edtSearch.setOnEditorActionListener { textView, actionId, event ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
+                actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+            ) {
+                searchHistory()
+                true
+            } else {
+                false
+            }
+        }
+
+
     }
 
     override fun initializeData() {
@@ -62,5 +75,23 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
         startActivity(intent)
     }
 
+    private fun searchHistory() {
+        val search = binding.edtSearch.text.toString()
+        if (search.isEmpty()) {
+            viewModel.loanList.observe(viewLifecycleOwner) { loanEntities ->
+                val filteredType = loanEntities.filter { it.type == "loan" }
+                val parentData = viewModel.initData(filteredType)
+                adapter.setData(parentData)
+            }
+        } else {
+            viewModel.loanList.observe(viewLifecycleOwner) { loanEntities ->
+                val filteredType = loanEntities.filter {
+                    it.type == "loan" && it.nameTypeCategory.contains(search)
+                }
+                val parentData = viewModel.initData(filteredType)
+                adapter.setData(parentData)
+            }
+        }
+    }
 
 }

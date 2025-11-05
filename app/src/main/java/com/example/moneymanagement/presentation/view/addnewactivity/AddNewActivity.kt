@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.view.addnewactivity
 
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
@@ -8,8 +9,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.example.moneymanagement.databinding.ActivityAddNewBinding
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.adapter.AddNewAdapter
-import com.example.moneymanagement.presentation.view.addnewexpend.FragmentAddNewExpend
-import com.example.moneymanagement.presentation.view.addnewincome.FragmentAddNewIncome
+import com.example.moneymanagement.presentation.view.addnewexpend.AddNewExpendFragment
+import com.example.moneymanagement.presentation.view.addnewincome.AddNewIncomeFragment
 import com.example.moneymanagement.presentation.view.addnewloan.AddNewLoanFragment
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -72,12 +73,12 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
 
         when(getCurrent){
             0 -> {
-                val fragmentExpend = supportFragmentManager.findFragmentByTag("f0") as? FragmentAddNewExpend
+                val fragmentExpend = supportFragmentManager.findFragmentByTag("f0") as? AddNewExpendFragment
                 fragmentExpend?.sendDataExpend()
             }
 
             1 -> {
-                val fragmentIncome = supportFragmentManager.findFragmentByTag("f1") as? FragmentAddNewIncome
+                val fragmentIncome = supportFragmentManager.findFragmentByTag("f1") as? AddNewIncomeFragment
                 fragmentIncome?.sendDataIncome()
             }
 
