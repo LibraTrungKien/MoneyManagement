@@ -8,6 +8,7 @@ import com.example.moneymanagement.presentation.model.TransactionChild
 
 class ExpendChildAdapter(
     private val data: List<TransactionChild>,
+    private val date: String,
     private val itemClick: OnClickItemTransaction) :
     RecyclerView.Adapter<ExpendChildAdapter.ViewHolder>() {
 
@@ -38,7 +39,7 @@ class ExpendChildAdapter(
             binding.txtPrice.text = " - " + itemChild.expendPrice.toString() + " vnđ"
 
             binding.root.setOnClickListener {
-                itemClick.onItemClick(itemChild)
+                itemClick.onItemClick(itemChild, date)
             }
 
         }

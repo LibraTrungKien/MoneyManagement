@@ -1,6 +1,7 @@
 package com.example.moneymanagement.presentation.view.loanfragment
 
 import android.content.Intent
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentLoanBinding
 import com.example.moneymanagement.presentation.Utils
@@ -35,6 +36,12 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
             val filterType = loanEntities.filter { it.type == "loan" }
             data = viewModel.initData(filterType)
             adapter.setData(data)
+
+            binding.txtTransaction.visibility = if (filterType.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
 
     }
@@ -67,11 +74,12 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
         super.bindView()
     }
 
-    override fun onItemClick(item: TransactionChild) {
+    override fun onItemClick(item: TransactionChild, date : String) {
         val gson = Gson()
         val value = gson.toJson(item)
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
         intent.putExtra(Utils.ITEM_HISTORY_LOAN.name, value)
+        intent.putExtra("KEY_LOAN", date)
         startActivity(intent)
     }
 

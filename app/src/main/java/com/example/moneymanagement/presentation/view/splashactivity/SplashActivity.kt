@@ -16,7 +16,6 @@ import java.lang.Thread.sleep
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
 
-
     override fun bindView() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -32,6 +31,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             sleep(3000)
             val intent = Intent(this@SplashActivity, HomeActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
 

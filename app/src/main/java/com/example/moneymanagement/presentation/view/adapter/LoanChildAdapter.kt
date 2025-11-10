@@ -9,6 +9,7 @@ import com.example.moneymanagement.presentation.model.TransactionChild
 
 class LoanChildAdapter(
     val data: List<TransactionChild>,
+    private val date: String,
     private val onItemClick: OnClickItemTransaction,
 ) : RecyclerView.Adapter<LoanChildAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
@@ -49,7 +50,7 @@ class LoanChildAdapter(
             }
 
             binding.root.setOnClickListener {
-                onItemClick.onItemClick(itemChild)
+                onItemClick.onItemClick(itemChild, date)
             }
         }
 

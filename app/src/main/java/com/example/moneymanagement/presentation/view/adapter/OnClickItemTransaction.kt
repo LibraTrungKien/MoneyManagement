@@ -4,7 +4,7 @@ import com.example.moneymanagement.presentation.model.TransactionChild
 
 interface OnClickItemTransaction {
 
-    fun onItemClick(item: TransactionChild)
+    fun onItemClick(item: TransactionChild, date: String)
 
 
 }

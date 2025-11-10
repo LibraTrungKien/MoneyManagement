@@ -22,7 +22,7 @@ class TransactionsActivity :
     private lateinit var data: TransactionChild
     private lateinit var viewModel: TransactionsViewModel
     private lateinit var value: String
-
+    private var date: String? = null
     override fun initializeComponent() {
         super.initializeComponent()
 
@@ -32,14 +32,23 @@ class TransactionsActivity :
         val incomeValue = intent.getStringExtra(Utils.ITEM_HISTORY_INCOME.name)
         val loanValue = intent.getStringExtra(Utils.ITEM_HISTORY_LOAN.name)
 
+        val expendDate = intent.getStringExtra("KEY_EXPEND")
+        val incomeDate = intent.getStringExtra("KEY_INCOME")
+        val loanDate = intent.getStringExtra("KEY_LOAN")
+
+        Log.d("abc", expendValue.toString())
+
         if (expendValue != null) {
-            value = expendValue;
+            value = expendValue
+            date = expendDate
         } else if (incomeValue != null) {
-            value = incomeValue;
+            value = incomeValue
+            date = incomeDate
         } else if (loanValue != null) {
-            value = loanValue;
+            value = loanValue
+            date = loanDate
         } else {
-            value = "";
+            value = ""
         }
 
         val gson = Gson()
@@ -69,11 +78,11 @@ class TransactionsActivity :
             money = "- ${data.expendPrice} vnđ"
             color = (Color.parseColor("#F44336"))
         } else if (data.type == "income") {
-            money = "- ${data.expendPrice} vnđ"
+            money = "+ ${data.expendPrice} vnđ"
             color = (Color.parseColor("#4CAF50"))
         } else {
             if (data.nameCategory == "Bills") {
-                money = "- ${data.expendPrice} vnđ"
+                money = "+ ${data.expendPrice} vnđ"
                 color = (Color.parseColor("#4CAF50"))
             } else {
                 money = "- ${data.expendPrice} vnđ"
@@ -83,7 +92,7 @@ class TransactionsActivity :
 
         binding.txtPrice.text = money
         binding.txtPrice.setTextColor(color)
-        binding.txtdate.text = data.time
+        binding.txtdate.text = date
         binding.imgCategory.setImageResource(data.imgCategory)
         binding.txtNameCategory.text = data.nameCategory
         binding.txtContentCategory.text = data.note

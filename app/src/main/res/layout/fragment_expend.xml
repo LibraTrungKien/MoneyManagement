@@ -56,10 +56,10 @@
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist_500"
                 android:hint="Search"
-                android:textColor="@color/black"
                 android:imeOptions="actionSearch"
-                android:textColorHint="@color/black"
                 android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:textSize="14sp" />
 
             <TextView
@@ -69,6 +69,19 @@
                 android:fontFamily="@font/urbanist_600"
                 android:text="History"
                 android:textColor="#2D0D59"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:textColor="#2D0D59"
+                android:fontFamily="@font/urbanist_600"
+                android:text="No transactions yet"
                 android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView

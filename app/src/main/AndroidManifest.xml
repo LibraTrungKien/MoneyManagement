@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.view.addnewactivity.AddNewActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".presentation.view.transactionsactivity.TransactionsActivity"/>
         <activity android:name=".presentation.view.homeactivity.HomeActivity"/>
         <activity android:name=".presentation.view.staticactivity.StaticActivity"/>

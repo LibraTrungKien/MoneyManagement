@@ -1,6 +1,7 @@
 package com.example.moneymanagement.presentation.view.incomfragment
 
 import android.content.Intent
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentIncomeBinding
 import com.example.moneymanagement.presentation.Utils
@@ -34,6 +35,12 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
             val filteredType = incomeEntities.filter { it.type == "income" }
             val parentData = viewModel.initData(filteredType)
             adapter.setData(parentData)
+
+            binding.txtTransaction.visibility = if (filteredType.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 
@@ -64,11 +71,12 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
         startActivity(intent)
     }
 
-    override fun onItemClick(item: TransactionChild) {
+    override fun onItemClick(item: TransactionChild, date: String) {
         val gson = Gson()
         val value = gson.toJson(item)
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
         intent.putExtra(Utils.ITEM_HISTORY_INCOME.name, value)
+        intent.putExtra("KEY_INCOME", date)
         startActivity(intent)
     }
 

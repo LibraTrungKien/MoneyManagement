@@ -1,8 +1,7 @@
 package com.example.moneymanagement.presentation.view.expendfragment
 
 import android.content.Intent
-import android.util.Log
-import androidx.annotation.LongDef
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentExpendBinding
 import com.example.moneymanagement.presentation.Utils
@@ -14,10 +13,6 @@ import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivi
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding::inflate),
     OnClickItemTransaction {
@@ -40,7 +35,15 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
             val filteredType = expendEntities.filter { it.type == "expend" }
             val parentData = viewModel.initData(filteredType)
             parentAdapter.setData(parentData)
+
+            binding.txtTransaction.visibility = if (filteredType.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
+
+
     }
 
     override fun initializeEvents() {
@@ -73,11 +76,12 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         startActivity(intent)
     }
 
-    override fun onItemClick(item: TransactionChild) {
+    override fun onItemClick(item: TransactionChild, date: String) {
         val gson = Gson()
         val value = gson.toJson(item)
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
         intent.putExtra(Utils.ITEM_HISTORY_EXPEND.name, value)
+        intent.putExtra("KEY_EXPEND", date)
         startActivity(intent)
     }
 

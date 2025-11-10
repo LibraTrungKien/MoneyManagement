@@ -2,9 +2,14 @@ package com.example.moneymanagement.presentation.view.expendstaticfragment
 
 import android.graphics.Color
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.FragmentExpendStaticBinding
+import com.example.moneymanagement.presentation.database.AppDatabase
+import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.example.moneymanagement.presentation.view.expendfragment.ExpendViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -13,13 +18,23 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 
-class ExpendStaticFragment : BaseFragment<FragmentExpendStaticBinding>(FragmentExpendStaticBinding::inflate)  {
+class ExpendStaticFragment :
+    BaseFragment<FragmentExpendStaticBinding>(FragmentExpendStaticBinding::inflate) {
+
+    private lateinit var viewModel: ExpendStaticViewModel
 
     override fun initializeComponent() {
         super.initializeComponent()
-        setupPieChart()
-    }
 
+        val appDatabase = DataManager.getDataBase(requireContext())
+
+        viewModel = ViewModelProvider(this)[ExpendStaticViewModel::class.java]
+        viewModel.setAppDataBase(appDatabase, this)
+
+        viewModel.pieChartData.observe(viewLifecycleOwner) {
+            updatePieChart(it)
+        }
+    }
 
     override fun initializeEvents() {
         super.initializeEvents()
@@ -35,44 +50,28 @@ class ExpendStaticFragment : BaseFragment<FragmentExpendStaticBinding>(FragmentE
         super.bindView()
     }
 
-
-    private fun setupPieChart() {
+    private fun updatePieChart(entries: List<PieEntry>) {
         val pieChart: PieChart = binding.pieChart
 
-        val entries = getPieChartData()
-        val dataSet = PieDataSet(entries, "Chi tiêu")
+        binding.pieChart.setUsePercentValues(true)
+
+        val dataSet = PieDataSet(entries, "" )
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
         dataSet.valueTextSize = 14f
         dataSet.valueTextColor = Color.WHITE
+        pieChart.description.isEnabled = false
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false // chú thích màu
+        pieChart.isRotationEnabled = false // tăt bật xoay
+
+        pieChart.setTransparentCircleAlpha(0)
 
         val data = PieData(dataSet)
-        dataSet.setDrawIcons(true)
-        dataSet.iconsOffset = MPPointF(0f, 60f)
+        data.setValueFormatter(PercentFormatter(pieChart))
 
         pieChart.data = data
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
-        pieChart.setEntryLabelColor(Color.BLACK)
-        pieChart.setCenterTextSize(8f)
-        pieChart.setTransparentCircleAlpha(0) // set độ loang lổ giữa vong tron
-        pieChart.holeRadius = 45f
-        pieChart.setHoleColor(Color.WHITE)
-        pieChart.isRotationEnabled = false // cho hoặc k cho người dùng xoay biểu đồ
-
-        pieChart.legend.isEnabled = false // chú thích đỏ, xanh...
-        pieChart.description.isEnabled = false // ẩn tên mô tả
-        data.setValueFormatter(PercentFormatter(pieChart)); // thêm %
-
         pieChart.invalidate()
     }
 
-    private fun getPieChartData(): ArrayList<PieEntry> {
-        val entries = ArrayList<PieEntry>()
-        entries.add(PieEntry(45.2f, "Ăn uống", ContextCompat.getDrawable(requireContext(), R.drawable.ic_car)))
-        entries.add(PieEntry(48.2f, "Di chuyển", ContextCompat.getDrawable(requireContext(), R.drawable.ic_car)))
-        entries.add(PieEntry(20f, "Giải trí"))
-        entries.add(PieEntry(10f, "Khác"))
-        return entries
-    }
 
 }

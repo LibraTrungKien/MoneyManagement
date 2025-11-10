@@ -68,7 +68,7 @@ class AddNewIncomeFragment :
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        date = "$hour:$minute"
+        date = "$year/$month/$day"
         time = "$hour:$minute"
 
         binding.txtTime.text = "$hour:$minute"

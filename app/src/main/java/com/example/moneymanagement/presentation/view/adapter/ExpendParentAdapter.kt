@@ -15,7 +15,6 @@ class ExpendParentAdapter(
     private val viewPool = RecyclerView.RecycledViewPool()
 
     fun setData(newData: List<TransactionParent>) {
-        data = emptyList()
         data = newData
         notifyDataSetChanged()
     }
@@ -39,7 +38,7 @@ class ExpendParentAdapter(
         fun bindView(itemParent: TransactionParent) {
             binding.txtDateParent.text = itemParent.date
 
-            val parentAdapter = ExpendChildAdapter(itemParent.child, itemClick)
+            val parentAdapter = ExpendChildAdapter(itemParent.child, itemParent.date,itemClick,  )
             binding.listHistoryExpendChild.adapter = parentAdapter
 
             binding.listHistoryExpendChild.setRecycledViewPool(viewPool)
