@@ -16,5 +16,6 @@ data class AddNewEntity (
     val dateExpend: String,
     val timeExpend: String
 )
+//phân loại mô hình thuận toán, thuật toán dùng để làm gì
 
 

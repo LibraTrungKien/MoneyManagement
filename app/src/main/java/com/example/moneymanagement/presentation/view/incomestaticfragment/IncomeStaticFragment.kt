@@ -1,11 +1,19 @@
 package com.example.moneymanagement.presentation.view.incomestaticfragment
 
 import android.graphics.Color
+import androidx.core.graphics.toColorInt
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.FragmentIncomeStaticBinding
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -16,23 +24,41 @@ class IncomeStaticFragment :
     BaseFragment<FragmentIncomeStaticBinding>(FragmentIncomeStaticBinding::inflate) {
 
     private lateinit var viewModel: IncomeStaticViewModel
+    private var chartIsFirst: Boolean = true
+
 
     override fun initializeComponent() {
         super.initializeComponent()
         viewModel = ViewModelProvider(this)[IncomeStaticViewModel::class.java]
         val appDatabase = DataManager.getDataBase(requireContext())
 
-        viewModel.setAppDataBase(appDatabase, this)
+        viewModel.setAppDataBase(appDatabase)
+        viewModel.getDataPieChart(this)
+        viewModel.getDataBarChart(this)
 
         viewModel.pieChartData.observe(viewLifecycleOwner) {
             updatePieChart(it)
         }
 
+        viewModel.barChar.observe(viewLifecycleOwner) {
+            updateColumChart(it)
+        }
 
     }
 
     override fun initializeEvents() {
-        super.initializeEvents()
+        binding.btnStatic.setOnClickListener {
+            chartIsFirst = !chartIsFirst
+            if (chartIsFirst) {
+                binding.btnStatic.setImageResource(R.drawable.ic_columg_chart)
+                binding.columChart.isVisible = true
+                binding.pieChart.isVisible = false
+            } else {
+                binding.btnStatic.setImageResource(R.drawable.ic_static)
+                binding.pieChart.isVisible = true
+                binding.columChart.isVisible = false
+            }
+        }
     }
 
     override fun initializeData() {
@@ -64,6 +90,37 @@ class IncomeStaticFragment :
 
         pieChart.data = data
         pieChart.invalidate()
+    }
+
+    private fun updateColumChart(entries: List<BarEntry>){
+        val column: BarChart = binding.columChart
+
+        val dataSet = BarDataSet(entries, "Doanh số")
+        dataSet.color = "#4F80FC".toColorInt()
+        dataSet.valueTextSize = 14f
+        dataSet.valueTextColor = Color.WHITE
+        dataSet.isHighlightEnabled = false
+
+        val data = BarData(dataSet)
+        data.barWidth = 0.12f
+
+        column.data = data
+        column.setFitBars(true)
+        column.description.isEnabled = false
+        column.legend.isEnabled = false
+        column.axisRight.isEnabled = false
+        column.animateY(1000)
+
+        val xAxis = column.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f
+        xAxis.setDrawLabels(false) // bỏ label
+
+        column.isHighlightPerTapEnabled = false
+        column.isHighlightFullBarEnabled = false
+
+        column.invalidate()
     }
 
 
