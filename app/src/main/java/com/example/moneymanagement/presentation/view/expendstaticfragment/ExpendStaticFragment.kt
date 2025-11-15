@@ -25,17 +25,24 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import androidx.core.graphics.toColorInt
+import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
+import com.example.moneymanagement.presentation.view.adapter.ExpendStaticCategoryParentAdapter
 
 class ExpendStaticFragment :
     BaseFragment<FragmentExpendStaticBinding>(FragmentExpendStaticBinding::inflate) {
 
     private lateinit var viewModel: ExpendStaticViewModel
     private var chartIsFirst: Boolean = true
+    private lateinit var adapter : ExpendStaticCategoryParentAdapter
+
 
     override fun initializeComponent() {
         super.initializeComponent()
 
         val appDatabase = DataManager.getDataBase(requireContext())
+
+        adapter = ExpendStaticCategoryParentAdapter(emptyList())
+        binding.lstStaticCategory.adapter = adapter
 
         viewModel = ViewModelProvider(this)[ExpendStaticViewModel::class.java]
         viewModel.setAppDataBase(appDatabase)
@@ -48,6 +55,10 @@ class ExpendStaticFragment :
 
         viewModel.barChar.observe(viewLifecycleOwner) {
             updateColumChart(it)
+        }
+
+        viewModel.dataStatic.observe(viewLifecycleOwner){
+            adapter.setData(it)
         }
     }
 

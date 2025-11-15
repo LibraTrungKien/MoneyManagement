@@ -4,7 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.database.AppDatabase
+import com.example.moneymanagement.presentation.model.StaticCategoryChildModel
+import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
+import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.model.TransactionParent
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
@@ -18,6 +23,9 @@ class ExpendStaticViewModel : ViewModel() {
     val barChar: LiveData<List<BarEntry>> get() = _barChart
 
     private lateinit var db: AppDatabase
+
+    private val _dataStatic = MutableLiveData<List<StaticCategoryParentModel>>()
+    val dataStatic: LiveData<List<StaticCategoryParentModel>> get() = _dataStatic
 
     fun setAppDataBase(db: AppDatabase) {
         this.db = db
@@ -60,6 +68,29 @@ class ExpendStaticViewModel : ViewModel() {
                 labels.add(entry.key)
             }
             _barChart.postValue(barEntries)
+        }
+    }
+
+    fun initDataStaticCategory(owner: LifecycleOwner) {
+
+        db.expendDao().getAll().observe(owner) { expendList ->
+
+            val groupType = expendList.filter { it.type == "expend" }
+
+            val grouped = groupType.groupBy { it.nameTypeCategory }
+
+            val bindView = grouped.map { (date, item) ->
+                val child = item.map {
+                    StaticCategoryChildModel(
+                        imgCategory = it.imgTypeCategory,
+                        nameCategory = it.nameTypeCategory,
+                        totalMoneyCategory = it.amountExpend.toString(),
+                        progress = 50
+                    )
+                }
+            }
+
+
         }
     }
 
