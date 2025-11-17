@@ -1,12 +1,14 @@
 package com.example.moneymanagement.presentation.view.incomestaticfragment
 
 import android.graphics.Color
+import android.util.Log
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.FragmentIncomeStaticBinding
 import com.example.moneymanagement.presentation.database.DataManager
+import com.example.moneymanagement.presentation.view.adapter.IncomeStaticCategoryParentAdapter
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -25,16 +27,20 @@ class IncomeStaticFragment :
 
     private lateinit var viewModel: IncomeStaticViewModel
     private var chartIsFirst: Boolean = true
-
+    private lateinit var adapter: IncomeStaticCategoryParentAdapter
 
     override fun initializeComponent() {
         super.initializeComponent()
         viewModel = ViewModelProvider(this)[IncomeStaticViewModel::class.java]
         val appDatabase = DataManager.getDataBase(requireContext())
 
+        adapter = IncomeStaticCategoryParentAdapter(emptyList())
+        binding.lstStaticCategory.adapter = adapter
+
         viewModel.setAppDataBase(appDatabase)
         viewModel.getDataPieChart(this)
         viewModel.getDataBarChart(this)
+        viewModel.getDataCategoryStatic(this)
 
         viewModel.pieChartData.observe(viewLifecycleOwner) {
             updatePieChart(it)
@@ -42,6 +48,10 @@ class IncomeStaticFragment :
 
         viewModel.barChar.observe(viewLifecycleOwner) {
             updateColumChart(it)
+        }
+
+        viewModel.dataStatic.observe(viewLifecycleOwner){
+            adapter.setData(it)
         }
 
     }

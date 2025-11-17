@@ -41,7 +41,6 @@ class AddNewIncomeFragment :
     override fun initializeComponent() {
         addNew.typeAddNew.observe(viewLifecycleOwner){
             type = it
-            Log.d("income", type)
         }
 
 
@@ -68,7 +67,7 @@ class AddNewIncomeFragment :
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        date = "$year/$month/$day"
+        date = "$day/$month/$year"
         time = "$hour:$minute"
 
         binding.txtTime.text = "$hour:$minute"

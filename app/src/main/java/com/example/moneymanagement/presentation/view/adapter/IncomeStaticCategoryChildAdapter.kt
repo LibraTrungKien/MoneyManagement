@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemStaticCategoryChildBinding
 import com.example.moneymanagement.presentation.model.StaticCategoryChildModel
 
-class ExpendStaticCategoryChildAdapter(
+class IncomeStaticCategoryChildAdapter(
 
-    val data: List<StaticCategoryChildModel>
+    var data: List<StaticCategoryChildModel>
 
-) : RecyclerView.Adapter<ExpendStaticCategoryChildAdapter.ViewHolder>() {
-
+) : RecyclerView.Adapter<IncomeStaticCategoryChildAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -28,17 +27,21 @@ class ExpendStaticCategoryChildAdapter(
         holder.bindView(data[position])
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
 
     inner class ViewHolder(val binding: ItemStaticCategoryChildBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(itemChild: StaticCategoryChildModel) {
-            binding.imgCategory.setImageResource(itemChild.imgCategory)
-            binding.txtCategory.text = itemChild.nameCategory
-            binding.txtTotalMoney.text = itemChild.totalMoneyCategory
+
+        fun bindView(item: StaticCategoryChildModel) {
+            binding.imgCategory.setImageResource(item.imgCategory)
+            binding.txtCategory.text = item.nameCategory
+            binding.pbCategory.progress = item.progress
+            binding.txtTotalMoney.text = item.totalMoneyCategory
         }
 
     }
-
 }

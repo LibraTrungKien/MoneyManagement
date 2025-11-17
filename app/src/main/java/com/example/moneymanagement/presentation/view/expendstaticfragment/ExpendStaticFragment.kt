@@ -48,6 +48,7 @@ class ExpendStaticFragment :
         viewModel.setAppDataBase(appDatabase)
         viewModel.getDataPieChart(this)
         viewModel.getDataBarChart(this)
+        viewModel.getDataStaticCategory(this)
 
         viewModel.pieChartData.observe(viewLifecycleOwner) {
             updatePieChart(it)
@@ -97,7 +98,6 @@ class ExpendStaticFragment :
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
         dataSet.valueTextSize = 14f
         dataSet.valueTextColor = Color.WHITE
-        pieChart.description.isEnabled = false
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false // chú thích màu
         pieChart.isRotationEnabled = false // tăt bật xoay

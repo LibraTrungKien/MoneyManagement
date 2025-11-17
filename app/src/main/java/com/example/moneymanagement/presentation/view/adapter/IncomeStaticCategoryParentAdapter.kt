@@ -2,19 +2,19 @@ package com.example.moneymanagement.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemStaticCategoryParentBinding
-import com.example.moneymanagement.presentation.model.StaticCategoryChildModel
 import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
 
-class ExpendStaticCategoryParentAdapter(
+class IncomeStaticCategoryParentAdapter(
     private var data: List<StaticCategoryParentModel>
 
-) : RecyclerView.Adapter<ExpendStaticCategoryParentAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<IncomeStaticCategoryParentAdapter.ViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
 
-    fun setData (newData : List<StaticCategoryParentModel>){
+    fun setData(newData :List<StaticCategoryParentModel> ){
         data = newData
         notifyDataSetChanged()
     }
@@ -32,27 +32,22 @@ class ExpendStaticCategoryParentAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        holder.bindView(data[position])
+       holder.bindView(data[position])
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
 
     inner class ViewHolder(val binding: ItemStaticCategoryParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(item: StaticCategoryParentModel) {
+        fun bindView(item : StaticCategoryParentModel) {
             binding.date.text = item.date
-
-            val adapter = ExpendStaticCategoryChildAdapter(item.list)
+            val adapter = IncomeStaticCategoryChildAdapter(item.list)
             binding.lstStaticCategory.adapter = adapter
 
             binding.lstStaticCategory.setRecycledViewPool(viewPool)
-
         }
-
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.moneymanagement.presentation.view.expendstaticfragment
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,8 @@ import com.example.moneymanagement.presentation.model.TransactionParent
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ExpendStaticViewModel : ViewModel() {
 
@@ -39,7 +42,7 @@ class ExpendStaticViewModel : ViewModel() {
             val total = groupType.sumOf { it.amountExpend }
 
             val group = groupType.groupBy { it.nameTypeCategory }
-                .map { (nameTypeCategory, money) ->
+                .mapNotNull { (nameTypeCategory, money) ->
                     val totalMoney = money.sumOf { it.amountExpend }
                     val per = (totalMoney.toDouble() / total.toDouble()) * 100
 
@@ -71,27 +74,43 @@ class ExpendStaticViewModel : ViewModel() {
         }
     }
 
-    fun initDataStaticCategory(owner: LifecycleOwner) {
+    fun getDataStaticCategory(owner: LifecycleOwner) {
 
         db.expendDao().getAll().observe(owner) { expendList ->
 
             val groupType = expendList.filter { it.type == "expend" }
 
-            val grouped = groupType.groupBy { it.nameTypeCategory }
+            val formatter = DateTimeFormatter.ofPattern("d/M/yyyy")
 
-            val bindView = grouped.map { (date, item) ->
-                val child = item.map {
-                    StaticCategoryChildModel(
-                        imgCategory = it.imgTypeCategory,
-                        nameCategory = it.nameTypeCategory,
-                        totalMoneyCategory = it.amountExpend.toString(),
-                        progress = 50
-                    )
-                }
+            val groupedByMonth = groupType.groupBy { item ->
+                val date = LocalDate.parse(item.dateExpend, formatter)
+                "${date.monthValue}/${date.year}"
             }
 
+            val bindView = groupedByMonth.map { (monthYear, items) ->
 
+                val childList = items.groupBy { it.nameTypeCategory }
+                    .map { (categoryName, list) ->
+
+                        val totalCategory = list.sumOf { it.amountExpend }
+
+                        StaticCategoryChildModel(
+                            imgCategory = list.first().imgTypeCategory,
+                            nameCategory = categoryName,
+                            totalMoneyCategory = "$totalCategory đ",
+                            progress = 50
+                        )
+                    }
+
+                StaticCategoryParentModel(
+                    date = monthYear,
+                    list = childList
+                )
+            }
+
+            _dataStatic.postValue(bindView)
         }
     }
+
 
 }
