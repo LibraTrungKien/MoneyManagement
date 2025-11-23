@@ -143,7 +143,7 @@ class AddNewIncomeFragment :
         }
 
         val expend = AddNewEntity(
-            idExpend = 0,
+            id = 0,
             type,
             amountMoney,
             nameCategory,

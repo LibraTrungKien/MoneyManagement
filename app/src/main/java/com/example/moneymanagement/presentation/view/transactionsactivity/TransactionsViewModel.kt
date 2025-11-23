@@ -16,7 +16,7 @@ class TransactionsViewModel : ViewModel() {
 
     fun setAppDatabase(appDatabase: AppDatabase){
         this.appDatabase = appDatabase
-        dao = appDatabase.expendDao()
+        dao = appDatabase.addNewDao()
     }
 
     fun delete(id: Int){

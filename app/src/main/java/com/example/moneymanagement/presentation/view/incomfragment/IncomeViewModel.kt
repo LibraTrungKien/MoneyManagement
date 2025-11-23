@@ -18,21 +18,21 @@ class IncomeViewModel : ViewModel() {
 
     fun setAppDataBase(database: AppDatabase) {
         appDatabase = database
-        dao = appDatabase.expendDao()
+        dao = appDatabase.addNewDao()
     }
 
     fun initData(list: List<AddNewEntity>): List<TransactionParent> {
-        val parent = list.groupBy { it.dateExpend }
+        val parent = list.groupBy { it.date }
         return parent.map { (date, items) ->
             val children = items.map {
                 TransactionChild(
-                    id = it.idExpend,
+                    id = it.id,
                     imgCategory = it.imgTypeCategory,
                     type = it.type,
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",
-                    time = it.timeExpend,
-                    expendPrice = it.amountExpend,
+                    time = it.time,
+                    expendPrice = it.amount,
                     nameBudget = it.nameBudget
                 )
             }

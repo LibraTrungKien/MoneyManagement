@@ -9,8 +9,4 @@ class HomeViewModel : ViewModel() {
     private var money = MutableLiveData<String>()
     private val totalMoney : LiveData<String> get() = money
 
-
-
-
-
 }

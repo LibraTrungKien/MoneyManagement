@@ -92,14 +92,14 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
         if (!data.isNullOrEmpty()) {
             val expend = data[0]
             addNewViewModel.insertExpendEntity(
-                expend.amountExpend,
+                expend.amount,
                 expend.type,
                 expend.nameTypeCategory,
                 expend.imgTypeCategory,
                 expend.nameBudget,
                 expend.note,
-                expend.dateExpend,
-                expend.timeExpend
+                expend.date,
+                expend.time
 
             )
             Toast.makeText(this, "Save success", Toast.LENGTH_SHORT).show()

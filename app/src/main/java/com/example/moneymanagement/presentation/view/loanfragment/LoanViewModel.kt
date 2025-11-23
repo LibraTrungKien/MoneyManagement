@@ -18,22 +18,22 @@ class LoanViewModel : ViewModel() {
 
     fun setAppDatabase(appDatabase: AppDatabase) {
         this.appDatabase = appDatabase
-        dao = appDatabase.expendDao()
+        dao = appDatabase.addNewDao()
     }
 
     fun initData(list: List<AddNewEntity>): List<TransactionParent> {
 
-        val parent = list.groupBy { it.dateExpend }
+        val parent = list.groupBy { it.date }
         return parent.map { (date , item) ->
             val child = item.map {
                 TransactionChild(
-                    id = it.idExpend,
+                    id = it.id,
                     type = it.type,
                     imgCategory = it.imgTypeCategory,
                     nameCategory = it.nameTypeCategory,
                     note = it.note ?: "",
-                    time = it.timeExpend,
-                    expendPrice = it.amountExpend,
+                    time = it.time,
+                    expendPrice = it.amount,
                     nameBudget = it.nameBudget
                 )
             }

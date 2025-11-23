@@ -143,7 +143,7 @@ class AddNewLoanFragment :
 
 
         val entity = AddNewEntity(
-            idExpend = 0,
+            id = 0,
             type,
             amountMoney,
             nameCategory,

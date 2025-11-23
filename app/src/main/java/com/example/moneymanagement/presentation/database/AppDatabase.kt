@@ -5,5 +5,5 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [AddNewEntity :: class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun expendDao() : AddNewDao
+    abstract fun addNewDao() : AddNewDao
 }

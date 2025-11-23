@@ -42,18 +42,18 @@ class AddNewViewModel : ViewModel() {
 
     ) {
         val entity = AddNewEntity(
-            idExpend = 0,
+            id = 0,
             type = type,
-            amountExpend = amountExpend,
+            amount = amountExpend,
             nameTypeCategory = nameTypeCategory,
             imgTypeCategory = imgTypeCategory,
             nameBudget = nameBudget,
             note = note,
-            dateExpend = dateExpend,
-            timeExpend = timeExpend
+            date = dateExpend,
+            time= timeExpend
         )
         CoroutineScope(Dispatchers.IO).launch {
-            appDatabase.expendDao().insertExpend(entity)
+            appDatabase.addNewDao().insertExpend(entity)
 
         }
     }

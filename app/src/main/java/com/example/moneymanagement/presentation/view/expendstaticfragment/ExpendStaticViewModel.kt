@@ -36,14 +36,14 @@ class ExpendStaticViewModel : ViewModel() {
 
     fun getDataPieChart(owner: LifecycleOwner) {
 
-        db.expendDao().getAll().observe(owner) { expendList ->
+        db.addNewDao().getAll().observe(owner) { expendList ->
 
             val groupType = expendList.filter { it.type == "expend" }
-            val total = groupType.sumOf { it.amountExpend }
+            val total = groupType.sumOf { it.amount }
 
             val group = groupType.groupBy { it.nameTypeCategory }
                 .mapNotNull { (nameTypeCategory, money) ->
-                    val totalMoney = money.sumOf { it.amountExpend }
+                    val totalMoney = money.sumOf { it.amount }
                     val per = (totalMoney.toDouble() / total.toDouble()) * 100
 
                     PieEntry(per.toFloat(), nameTypeCategory)
@@ -55,7 +55,7 @@ class ExpendStaticViewModel : ViewModel() {
 
     fun getDataBarChart(owner: LifecycleOwner) {
 
-        db.expendDao().getAll().observe(owner) { expendList ->
+        db.addNewDao().getAll().observe(owner) { expendList ->
 
             val groupType = expendList.filter { it.type == "expend" }
 
@@ -67,7 +67,7 @@ class ExpendStaticViewModel : ViewModel() {
             val labels = ArrayList<String>()
 
             grouped.entries.forEachIndexed { index, entry ->
-                val totalMoney = entry.value.sumOf { it.amountExpend }
+                val totalMoney = entry.value.sumOf { it.amount }
                 barEntries.add(BarEntry(index.toFloat(), totalMoney.toFloat()))
 
                 labels.add(entry.key)
@@ -78,14 +78,14 @@ class ExpendStaticViewModel : ViewModel() {
 
     fun getDataStaticCategory(owner: LifecycleOwner) {
 
-        db.expendDao().getAll().observe(owner) { expendList ->
+        db.addNewDao().getAll().observe(owner) { expendList ->
 
             val groupType = expendList.filter { it.type == "expend" }
 
             val formatter = DateTimeFormatter.ofPattern("d/M/yyyy")
 
             val groupedByMonth = groupType.groupBy { item ->
-                val date = LocalDate.parse(item.dateExpend, formatter)
+                val date = LocalDate.parse(item.date, formatter)
                 "${date.monthValue}/${date.year}"
             }
 
@@ -94,7 +94,7 @@ class ExpendStaticViewModel : ViewModel() {
                 val childList = items.groupBy { it.nameTypeCategory }
                     .map { (categoryName, list) ->
 
-                        val totalCategory = list.sumOf { it.amountExpend }
+                        val totalCategory = list.sumOf { it.amount}
 
                         StaticCategoryChildModel(
                             imgCategory = list.first().imgTypeCategory,

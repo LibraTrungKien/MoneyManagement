@@ -13,7 +13,7 @@ object DataManager {
             val instance = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "data_expend"
+                "data"
             ).build()
             INSTANCE = instance
             instance

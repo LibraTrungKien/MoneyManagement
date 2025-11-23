@@ -11,7 +11,7 @@ import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.adapter.HomeAdapter
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.example.moneymanagement.presentation.view.budgetactivity.BudgetActivity
-import com.example.moneymanagement.presentation.view.popup.SelectionYearPopup
+import com.example.moneymanagement.presentation.view.selectmonthdialog.SelectionYearPopup
 import com.example.moneymanagement.presentation.view.staticactivity.StaticActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -67,13 +67,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         var totalMoney = 0
 
         val db = DataManager.getDataBase(this)
-        db.expendDao().getAll().observe(this) { list ->
+        db.addNewDao().getAll().observe(this) { list ->
 
             val expendMoney = list.filter { it.type == "expend" }
-            val totalMoneyExpend = expendMoney.sumOf { it.amountExpend }
+            val totalMoneyExpend = expendMoney.sumOf { it.amount }
 
             val incomeMoney = list.filter { it.type == "income" }
-            val totalMoneyIncome = incomeMoney.sumOf { it.amountExpend }
+            val totalMoneyIncome = incomeMoney.sumOf { it.amount }
 
             totalMoney = money - totalMoneyExpend + totalMoneyIncome
 

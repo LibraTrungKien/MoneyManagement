@@ -6,15 +6,15 @@ import androidx.room.PrimaryKey
 @Entity
 data class AddNewEntity (
 
-    @PrimaryKey(autoGenerate = true) val idExpend: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val type: String,
-    val amountExpend: Int,
+    val amount: Int,
     val nameTypeCategory: String,
     val imgTypeCategory: Int,
     val nameBudget: String,
     val note: String?,
-    val dateExpend: String,
-    val timeExpend: String
+    val date: String,
+    val time: String
 )
 
 
