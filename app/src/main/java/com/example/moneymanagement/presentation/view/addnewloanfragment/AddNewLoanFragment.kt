@@ -1,10 +1,9 @@
-package com.example.moneymanagement.presentation.view.addnewincome
+package com.example.moneymanagement.presentation.view.addnewloanfragment
 
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.moneymanagement.databinding.FragmentAddNewIncomeBinding
+import com.example.moneymanagement.databinding.FragmentAddNewLoanBinding
 import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.model.CategoryModel
 import com.example.moneymanagement.presentation.view.dialog.BudgetBottomSheet
@@ -15,18 +14,17 @@ import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.dialog.SetDateBottomSheetDialog
 import com.example.moneymanagement.presentation.view.dialog.SetTimeBottomSheetDialog
 import java.util.Calendar
-import kotlin.getValue
 
-class AddNewIncomeFragment :
-    BaseFragment<FragmentAddNewIncomeBinding>(FragmentAddNewIncomeBinding::inflate),
+class AddNewLoanFragment :
+    BaseFragment<FragmentAddNewLoanBinding>(FragmentAddNewLoanBinding::inflate),
     OnClickItemAddNew {
 
     private lateinit var adapter: AddNewCategoryAdapter
     private lateinit var data: List<CategoryModel>
-    private lateinit var viewModel: AddNewIncomeViewModel
+    private lateinit var viewModel: AddNewLoanViewModel
+    private var calendar = Calendar.getInstance()
     private var nameBudget: String = ""
     private var imgBudget: Int = 0
-    private var calendar = Calendar.getInstance()
     private var amountMoney: Int = 0
     private var nameCategory: String = "None"
     private var imgCategory: Int = 0
@@ -39,12 +37,11 @@ class AddNewIncomeFragment :
 
 
     override fun initializeComponent() {
-        addNew.typeAddNew.observe(viewLifecycleOwner){
+        viewModel = ViewModelProvider(this)[AddNewLoanViewModel::class.java]
+
+        addNew.typeAddNew.observe(viewLifecycleOwner) {
             type = it
         }
-
-
-        viewModel = ViewModelProvider(this)[AddNewIncomeViewModel::class.java]
 
         data = viewModel.initData()
         adapter = AddNewCategoryAdapter(data, this)
@@ -52,12 +49,15 @@ class AddNewIncomeFragment :
     }
 
     override fun initializeEvents() {
-        binding.btnBudget.setOnClickListener { showBudgetBottomSheet() }
-        binding.btnTime.setOnClickListener { setTimeBottomSheet() }
-        binding.btnCalender.setOnClickListener { setDateBottomSheet() }
+        binding.btnBudget.setOnClickListener {
+            showBudgetBottomSheet()
+        }
     }
 
     override fun initializeData() {
+        binding.btnBudget.setOnClickListener { showBudgetBottomSheet() }
+        binding.btnTime.setOnClickListener { setTimeBottomSheet() }
+        binding.btnCalender.setOnClickListener { setDateBottomSheet() }
     }
 
     override fun bindView() {
@@ -67,12 +67,11 @@ class AddNewIncomeFragment :
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        date = "$day/$month/$year"
         time = "$hour:$minute"
+        date = "$day/$month/$year"
 
         binding.txtTime.text = "$hour:$minute"
         binding.txtDate.text = "$day/$month/$year"
-
     }
 
     private fun showBudgetBottomSheet() {
@@ -103,13 +102,12 @@ class AddNewIncomeFragment :
         month: Int,
         year: Int
     ) {
-
-        date = "$day/$month/$year"
+        val date = "$day/$month/$year"
         binding.txtDate.text = date
     }
 
     override fun onClickListerTime(minute: Int, hour: Int) {
-        time = "$hour:$minute"
+        val time = "$hour:$minute"
         binding.txtTime.text = time
     }
 
@@ -121,10 +119,11 @@ class AddNewIncomeFragment :
         imgCategory = item.imgTypeCategory
     }
 
-    fun sendDataIncome() {
+
+    fun senDataLoan() {
+        val getMoney = binding.edtSetMoney.text.toString()
+        amountMoney = getMoney.toIntOrNull() ?: -1
         note = binding.edtNote.text.toString()
-        val setMoney = binding.edtSetMoney.text.toString()
-        amountMoney = setMoney.toIntOrNull() ?: -1
 
         if (amountMoney < 1000) {
             Toast.makeText(requireContext(), "Money must not be less than 1000", Toast.LENGTH_SHORT)
@@ -142,7 +141,8 @@ class AddNewIncomeFragment :
             return
         }
 
-        val expend = AddNewEntity(
+
+        val entity = AddNewEntity(
             id = 0,
             type,
             amountMoney,
@@ -153,7 +153,7 @@ class AddNewIncomeFragment :
             date,
             time
         )
-        addNew.setDataList(listOf(expend))
+        addNew.setDataList(listOf(entity))
     }
 
 }

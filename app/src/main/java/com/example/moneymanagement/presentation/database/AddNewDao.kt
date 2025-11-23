@@ -9,7 +9,7 @@ import androidx.room.Update
 
 @Dao
 interface AddNewDao {
-    @Query("SELECT * FROM AddNewEntity ORDER BY dateExpend DESC")
+    @Query("SELECT * FROM AddNewEntity ORDER BY date DESC")
     fun getAll(): LiveData<List<AddNewEntity>>
 
     @Insert
@@ -21,6 +21,6 @@ interface AddNewDao {
     @Delete
     fun deleteExpend(deleteExpend: AddNewEntity)
 
-    @Query("DELETE FROM AddNewEntity Where idExpend = :id")
+    @Query("DELETE FROM AddNewEntity Where id = :id")
     fun deleteById(id: Int)
 }

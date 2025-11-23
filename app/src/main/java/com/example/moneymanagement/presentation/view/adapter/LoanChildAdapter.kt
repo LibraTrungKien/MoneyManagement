@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryChildBinding
 import com.example.moneymanagement.presentation.model.TransactionChild
+import java.text.DecimalFormat
 
 class LoanChildAdapter(
     val data: List<TransactionChild>,
@@ -42,10 +43,10 @@ class LoanChildAdapter(
             binding.txtContentCategory.text = itemChild.note
 
             if(itemChild.nameCategory == "Bills"){
-                binding.txtPrice.text = "+" + itemChild.expendPrice.toString() + "vnđ"
+                binding.txtPrice.text = "+" + formatMoney(itemChild.expendPrice) + "vnđ"
                 binding.txtPrice.setTextColor(Color.parseColor("#4CAF50"))
             } else {
-                binding.txtPrice.text = "-" + itemChild.expendPrice.toString() + "vnđ"
+                binding.txtPrice.text = "-" + formatMoney(itemChild.expendPrice) + "vnđ"
                 binding.txtPrice.setTextColor(Color.parseColor("#F44336"))
             }
 
@@ -54,6 +55,10 @@ class LoanChildAdapter(
             }
         }
 
+        private fun formatMoney(amount: Int): String {
+            val formatter = DecimalFormat("#,###")
+            return formatter.format(amount).replace(",", ".")
+        }
 
     }
 

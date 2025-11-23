@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.view.addnewincome
+package com.example.moneymanagement.presentation.view.addnewincomefragment
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R

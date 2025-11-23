@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryChildBinding
 import com.example.moneymanagement.presentation.model.TransactionChild
+import java.text.DecimalFormat
 
 class ExpendChildAdapter(
     private val data: List<TransactionChild>,
@@ -37,12 +38,19 @@ class ExpendChildAdapter(
             binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
             binding.txtPrice.text = " - " + itemChild.expendPrice.toString() + " vnđ"
+            binding.txtPrice.text = " - " + formatMoney(itemChild.expendPrice) + " vnđ"
 
             binding.root.setOnClickListener {
                 itemClick.onItemClick(itemChild, date)
             }
 
         }
+
+        private fun formatMoney(amount: Int): String {
+            val formatter = DecimalFormat("#,###")
+            return formatter.format(amount).replace(",", ".")
+        }
+
     }
 
 

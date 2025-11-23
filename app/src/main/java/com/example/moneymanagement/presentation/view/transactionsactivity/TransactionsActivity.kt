@@ -14,6 +14,7 @@ import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.model.TransactionChild
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.google.gson.Gson
+import java.text.DecimalFormat
 import kotlin.jvm.java
 
 class TransactionsActivity :
@@ -68,29 +69,30 @@ class TransactionsActivity :
     }
 
     override fun bindView() {
-        var money: String = ""
+        val moneyValue: Int = data.expendPrice
+        var bindMoney = ""
         var color: Int = 0
 
         binding.imgCategoryMain.setImageResource(data.imgCategory)
         binding.txtNameTypeCategory.text = data.nameCategory
 
         if (data.type == "expend") {
-            money = "- ${data.expendPrice} vnđ"
+            bindMoney = "- ${formatMoney(moneyValue)} đ"
             color = (Color.parseColor("#F44336"))
         } else if (data.type == "income") {
-            money = "+ ${data.expendPrice} vnđ"
+            bindMoney = "+ ${formatMoney(moneyValue)} đ"
             color = (Color.parseColor("#4CAF50"))
         } else {
             if (data.nameCategory == "Bills") {
-                money = "+ ${data.expendPrice} vnđ"
+                bindMoney =  "+ ${formatMoney(moneyValue)} đ"
                 color = (Color.parseColor("#4CAF50"))
             } else {
-                money = "- ${data.expendPrice} vnđ"
+                bindMoney = "- ${formatMoney(moneyValue)} đ"
                 color = (Color.parseColor("#F44336"))
             }
         }
 
-        binding.txtPrice.text = money
+        binding.txtPrice.text = bindMoney
         binding.txtPrice.setTextColor(color)
         binding.txtdate.text = date
         binding.imgCategory.setImageResource(data.imgCategory)
@@ -115,6 +117,11 @@ class TransactionsActivity :
 
             .show()
         dialog.window?.setBackgroundDrawableResource(R.drawable.aleart_dialog_delete)
+    }
+
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
     }
 
 }

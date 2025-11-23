@@ -14,6 +14,7 @@ import com.example.moneymanagement.presentation.view.budgetactivity.BudgetActivi
 import com.example.moneymanagement.presentation.view.selectmonthdialog.SelectionYearPopup
 import com.example.moneymanagement.presentation.view.staticactivity.StaticActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.DecimalFormat
 
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
@@ -65,20 +66,22 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         val money = 0
         var totalMoney = 0
+        var formattedTotalMoney = "0đ"
 
         val db = DataManager.getDataBase(this)
         db.addNewDao().getAll().observe(this) { list ->
 
-            val expendMoney = list.filter { it.type == "expend" }
+            val expendMoney = list.filter { it.type == "expend"}
             val totalMoneyExpend = expendMoney.sumOf { it.amount }
 
             val incomeMoney = list.filter { it.type == "income" }
             val totalMoneyIncome = incomeMoney.sumOf { it.amount }
 
             totalMoney = money - totalMoneyExpend + totalMoneyIncome
+            formattedTotalMoney = formatMoney(totalMoney)
 
             if (initMoneyVisible) {
-                binding.txtTotalMoney.text = " $totalMoney vnđ"
+                binding.txtTotalMoney.text = " $formattedTotalMoney vnđ"
             } else {
                 binding.txtTotalMoney.text = "*** *** ***"
             }
@@ -90,7 +93,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
             if (newVisibilityState) {
                 binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye)
-                binding.txtTotalMoney.text = " $totalMoney vnđ"
+                binding.txtTotalMoney.text = " $formattedTotalMoney vnđ"
             } else {
                 binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
                 binding.txtTotalMoney.text = "*** *** ***"
@@ -118,6 +121,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         yearPopup?.showPopup(binding.btnMonthSelection)
     }
 
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
+    }
 
     private fun setupNavigationViewListener() {
         binding.navMenu.setNavigationItemSelectedListener {
@@ -131,7 +138,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                 }
 
                 R.id.nav_budget -> {
-                   val intent = Intent(this, BudgetActivity::class.java )
+                    val intent = Intent(this, BudgetActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -151,5 +158,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         }
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.view.addnewloan
+package com.example.moneymanagement.presentation.view.addnewloanfragment
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R

@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.view.addnewexpend
+package com.example.moneymanagement.presentation.view.addnewexpendfragment
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R

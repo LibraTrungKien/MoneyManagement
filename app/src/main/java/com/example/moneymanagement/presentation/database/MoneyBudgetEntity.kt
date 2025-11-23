@@ -4,15 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class BudgetEntity(
+data class MoneyBudgetEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val id : Int,
+    val id : Int = 1,
 
     val moneyBudget : Int,
-
-    val budgetName : String,
-
-
 
 )

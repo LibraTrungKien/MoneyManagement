@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.view.addnewexpend
+package com.example.moneymanagement.presentation.view.addnewexpendfragment
 
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -116,7 +116,6 @@ class AddNewExpendFragment :
     ) {
         nameCategory = item.typeCategory
         imgCategory = item.imgTypeCategory
-        Toast.makeText(requireContext(), nameCategory + imgCategory, Toast.LENGTH_SHORT).show()
     }
 
     fun sendDataExpend() {
