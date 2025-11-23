@@ -3,7 +3,7 @@ package com.example.moneymanagement.presentation.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moneymanagement.databinding.ItemHistoryExpendParentBinding
+import com.example.moneymanagement.databinding.ItemHistoryParentBinding
 import com.example.moneymanagement.presentation.model.TransactionParent
 
 class ExpendParentAdapter(
@@ -21,7 +21,7 @@ class ExpendParentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpendParentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemHistoryExpendParentBinding.inflate(inflater, parent, false)
+        val binding = ItemHistoryParentBinding.inflate(inflater, parent, false)
         return ExpendParentViewHolder(binding)
     }
 
@@ -32,16 +32,16 @@ class ExpendParentAdapter(
 
     override fun getItemCount(): Int = data.size
 
-    inner class ExpendParentViewHolder(private val binding: ItemHistoryExpendParentBinding) :
+    inner class ExpendParentViewHolder(private val binding: ItemHistoryParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(itemParent: TransactionParent) {
             binding.txtDateParent.text = itemParent.date
 
             val parentAdapter = ExpendChildAdapter(itemParent.child, itemParent.date,itemClick,  )
-            binding.listHistoryExpendChild.adapter = parentAdapter
+            binding.listHistoryChild.adapter = parentAdapter
 
-            binding.listHistoryExpendChild.setRecycledViewPool(viewPool)
+            binding.listHistoryChild.setRecycledViewPool(viewPool)
         }
 
     }

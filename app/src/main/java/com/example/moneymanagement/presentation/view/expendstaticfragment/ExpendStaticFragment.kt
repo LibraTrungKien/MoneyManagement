@@ -134,12 +134,17 @@ class ExpendStaticFragment :
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f
-        xAxis.setDrawLabels(false) // bỏ label
+        xAxis.setDrawLabels(false)
+
+        val yAxis = column.axisLeft
+        yAxis.axisMinimum = 0f
+        yAxis.setDrawGridLines(false)
 
         column.isHighlightPerTapEnabled = false
         column.isHighlightFullBarEnabled = false
 
         column.invalidate()
     }
+
 
 }

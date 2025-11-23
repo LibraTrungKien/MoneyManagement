@@ -127,6 +127,10 @@ class IncomeStaticFragment :
         xAxis.granularity = 1f
         xAxis.setDrawLabels(false) // bỏ label
 
+        val yAxis = column.axisLeft
+        yAxis.axisMinimum = 0f
+        yAxis.setDrawGridLines(false)
+
         column.isHighlightPerTapEnabled = false
         column.isHighlightFullBarEnabled = false
 

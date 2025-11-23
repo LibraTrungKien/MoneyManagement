@@ -25,6 +25,8 @@
         <activity android:name=".presentation.view.transactionsactivity.TransactionsActivity"/>
         <activity android:name=".presentation.view.homeactivity.HomeActivity"/>
         <activity android:name=".presentation.view.staticactivity.StaticActivity"/>
+        <activity android:name=".presentation.view.budgetactivity.BudgetActivity"/>
+        <activity android:name=".presentation.view.budetdetailactivity.BudgetDetailActivity"/>
     </application>
 
 </manifest>

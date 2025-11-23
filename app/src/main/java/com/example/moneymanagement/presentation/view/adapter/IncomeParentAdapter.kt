@@ -3,7 +3,7 @@ package com.example.moneymanagement.presentation.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moneymanagement.databinding.ItemHistoryIncomeParentBinding
+import com.example.moneymanagement.databinding.ItemHistoryParentBinding
 import com.example.moneymanagement.presentation.model.TransactionParent
 
 class IncomeParentAdapter(
@@ -24,7 +24,7 @@ class IncomeParentAdapter(
     ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemHistoryIncomeParentBinding.inflate(inflater, parent, false)
+        val binding = ItemHistoryParentBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -38,7 +38,7 @@ class IncomeParentAdapter(
     override fun getItemCount(): Int = data.size
 
 
-    inner class ViewHolder(val binding: ItemHistoryIncomeParentBinding) :
+    inner class ViewHolder(val binding: ItemHistoryParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
@@ -46,9 +46,9 @@ class IncomeParentAdapter(
             binding.txtDateParent.text = itemParent.date
 
             val parentAdapter = IncomeChildAdapter(onClickListner, itemParent.date,itemParent.child )
-            binding.listHistoryIncomeChild.adapter = parentAdapter
+            binding.listHistoryChild.adapter = parentAdapter
 
-            binding.listHistoryIncomeChild.setRecycledViewPool(viewPool)
+            binding.listHistoryChild.setRecycledViewPool(viewPool)
 
 
         }

@@ -3,10 +3,13 @@ package com.example.moneymanagement.presentation.view.loanstaticfragment
 import android.graphics.Color
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.FragmentLoanStaticBinding
 import com.example.moneymanagement.presentation.database.DataManager
+import com.example.moneymanagement.presentation.view.adapter.LoanStaticCategoryParentAdapter
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -25,6 +28,7 @@ class LoanStaticFragment :
 
     private lateinit var viewModle: LoanStaticViewModel
     private var chartIsFirst: Boolean = true
+    private lateinit var adapter : LoanStaticCategoryParentAdapter
 
     override fun initializeComponent() {
         super.initializeComponent()
@@ -33,8 +37,12 @@ class LoanStaticFragment :
         val appDataBase = DataManager.getDataBase(requireContext())
         viewModle.setAppDataBase(appDataBase)
 
+        adapter = LoanStaticCategoryParentAdapter(emptyList())
+        binding.lstStaticCategory.adapter = adapter
+
         viewModle.setDataPieChart(this)
         viewModle.getDataBarChart(this)
+        viewModle.getDataCategoryStatic(this)
 
         viewModle.pieChartData.observe(viewLifecycleOwner) {
             updatePieChart(it)
@@ -42,6 +50,10 @@ class LoanStaticFragment :
 
         viewModle.barChar.observe(viewLifecycleOwner) {
             updateColumChart(it)
+        }
+
+        viewModle.getDataStatic.observe(viewLifecycleOwner){
+            adapter.setData(it)
         }
 
     }
@@ -115,7 +127,11 @@ class LoanStaticFragment :
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f
-        xAxis.setDrawLabels(false) // bỏ label
+        xAxis.setDrawLabels(false)
+
+        val yAxis = column.axisLeft
+        yAxis.axisMinimum = 0f
+        yAxis.setDrawGridLines(false)
 
         column.isHighlightPerTapEnabled = false
         column.isHighlightFullBarEnabled = false

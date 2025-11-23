@@ -61,12 +61,14 @@ class ExpendStaticViewModel : ViewModel() {
 
             val grouped = groupType.groupBy { it.nameTypeCategory }
 
+            Log.d("BAR", "Expend categories = ${grouped.keys}")
+
             val barEntries = ArrayList<BarEntry>()
             val labels = ArrayList<String>()
 
             grouped.entries.forEachIndexed { index, entry ->
                 val totalMoney = entry.value.sumOf { it.amountExpend }
-                barEntries.add(BarEntry(index * 0.5f, totalMoney.toFloat()))
+                barEntries.add(BarEntry(index.toFloat(), totalMoney.toFloat()))
 
                 labels.add(entry.key)
             }

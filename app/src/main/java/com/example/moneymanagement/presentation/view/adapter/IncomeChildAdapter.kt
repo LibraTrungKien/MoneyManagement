@@ -1,10 +1,10 @@
 package com.example.moneymanagement.presentation.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moneymanagement.databinding.ItemHistoryExpendChildBinding
-import com.example.moneymanagement.databinding.ItemHistoryIncomeChildBinding
+import com.example.moneymanagement.databinding.ItemHistoryChildBinding
 import com.example.moneymanagement.presentation.model.TransactionChild
 
 class IncomeChildAdapter(
@@ -18,7 +18,7 @@ class IncomeChildAdapter(
     ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemHistoryIncomeChildBinding.inflate(inflater, parent, false)
+        val binding = ItemHistoryChildBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
 
     }
@@ -32,7 +32,7 @@ class IncomeChildAdapter(
 
     override fun getItemCount(): Int = data.size
 
-    inner class ViewHolder(val binding: ItemHistoryIncomeChildBinding) :
+    inner class ViewHolder(val binding: ItemHistoryChildBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(itemChild: TransactionChild) {
@@ -40,7 +40,11 @@ class IncomeChildAdapter(
             binding.txtCategory.text = itemChild.nameCategory
             binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
-            binding.txtPrice.text = "+" + itemChild.expendPrice.toString() + " vnđ"
+
+            if(itemChild.type == "income"){
+                binding.txtPrice.text = "+" + itemChild.expendPrice.toString() + " vnđ"
+                binding.txtPrice.setTextColor(Color.parseColor("#2CC013"))
+            }
 
             binding.root.setOnClickListener {
                 onItemClick.onItemClick(itemChild, date)

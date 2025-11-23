@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moneymanagement.databinding.ItemHistoryLoanChildBinding
+import com.example.moneymanagement.databinding.ItemHistoryChildBinding
 import com.example.moneymanagement.presentation.model.TransactionChild
 
 class LoanChildAdapter(
@@ -18,7 +18,7 @@ class LoanChildAdapter(
     ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemHistoryLoanChildBinding.inflate(inflater, parent, false)
+        val binding = ItemHistoryChildBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -32,7 +32,7 @@ class LoanChildAdapter(
     override fun getItemCount(): Int = data.size
 
 
-    inner class ViewHolder(val binding: ItemHistoryLoanChildBinding) :
+    inner class ViewHolder(val binding: ItemHistoryChildBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(itemChild: TransactionChild) {

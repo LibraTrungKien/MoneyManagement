@@ -1,18 +1,16 @@
 package com.example.moneymanagement.presentation.view.homeactivity
 
 import android.content.Intent
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.PopupWindow
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivityHomeBinding
+import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.adapter.HomeAdapter
 import com.example.moneymanagement.presentation.view.base.BaseActivity
+import com.example.moneymanagement.presentation.view.budgetactivity.BudgetActivity
 import com.example.moneymanagement.presentation.view.popup.SelectionYearPopup
 import com.example.moneymanagement.presentation.view.staticactivity.StaticActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -59,21 +57,40 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
     override fun bindView() {
-        bindMoneyVisibility()
     }
 
     private fun totalMoneyVisibility() {
         val sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE)
         initMoneyVisible = sharedPreferences.getBoolean("isMoneyVisible", true)
 
+        val money = 0
+        var totalMoney = 0
+
+        val db = DataManager.getDataBase(this)
+        db.expendDao().getAll().observe(this) { list ->
+
+            val expendMoney = list.filter { it.type == "expend" }
+            val totalMoneyExpend = expendMoney.sumOf { it.amountExpend }
+
+            val incomeMoney = list.filter { it.type == "income" }
+            val totalMoneyIncome = incomeMoney.sumOf { it.amountExpend }
+
+            totalMoney = money - totalMoneyExpend + totalMoneyIncome
+
+            if (initMoneyVisible) {
+                binding.txtTotalMoney.text = " $totalMoney vnđ"
+            } else {
+                binding.txtTotalMoney.text = "*** *** ***"
+            }
+        }
+
         binding.btnEyeTotalMoney.setOnClickListener {
             val isMoneyVisible = sharedPreferences.getBoolean("isMoneyVisible", true)
-
             val newVisibilityState = !isMoneyVisible
 
             if (newVisibilityState) {
                 binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye)
-                binding.txtTotalMoney.text = "$ 5,000,000"
+                binding.txtTotalMoney.text = " $totalMoney vnđ"
             } else {
                 binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
                 binding.txtTotalMoney.text = "*** *** ***"
@@ -82,6 +99,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             sharedPreferences.edit()
                 .putBoolean("isMoneyVisible", newVisibilityState)
                 .apply()
+
+            initMoneyVisible = newVisibilityState
         }
     }
 
@@ -91,15 +110,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
     }
 
-    private fun bindMoneyVisibility() {
-        if (initMoneyVisible) {
-            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye)
-            binding.txtTotalMoney.text = "$ 5,000,000"
-        } else {
-            binding.btnEyeTotalMoney.setBackgroundResource(R.drawable.ic_eye_remove_total_money)
-            binding.txtTotalMoney.text = "*** *** ***"
-        }
-    }
 
     private fun showYearPopup() {
         if (yearPopup == null) {
@@ -109,7 +119,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     }
 
 
-    private fun setupNavigationViewListener(){
+    private fun setupNavigationViewListener() {
         binding.navMenu.setNavigationItemSelectedListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             when (it.itemId) {
@@ -121,7 +131,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                 }
 
                 R.id.nav_budget -> {
-                    // TODO: Điều hướng sang màn hình Ngân sách
+                   val intent = Intent(this, BudgetActivity::class.java )
+                    startActivity(intent)
                     true
                 }
 
