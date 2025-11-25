@@ -78,11 +78,13 @@ class BudgetActivity : BaseActivity<ActivityBudgetBinding>(ActivityBudgetBinding
     }
 
     private fun calculateBudgetPercent() {
-        if (totalMoneyExpend <= 0) {
-            binding.txtProgress.text = "100%"
+        if (totalMoneyExpend <= 0 || moneyBudget <=0) {
+            binding.txtProgress.text = "0%"
+            budgetPercent = 0f
         } else {
             budgetPercent = ((totalMoneyExpend.toFloat() / moneyBudget) * 100)
-            binding.txtProgress.text = "$budgetPercent %"
+            val percentDisplay = String.format("%.1f", budgetPercent)
+            binding.txtProgress.text = "$percentDisplay %"
         }
     }
 

@@ -9,12 +9,12 @@ class AddNewIncomeViewModel : ViewModel() {
     private var data = mutableListOf<CategoryModel>()
 
     fun initData(): List<CategoryModel> {
-        data.add(CategoryModel("Bills", R.drawable.ic_salary));
+        data.add(CategoryModel("Bills", R.drawable.ic_other))
         data.add(CategoryModel("Rentals", R.drawable.ic_invest))
         data.add(CategoryModel("Medical", R.drawable.ic_business))
         data.add(CategoryModel("Investment", R.drawable.ic_interest))
         data.add(CategoryModel("Gift", R.drawable.ic_gift))
-        data.add(CategoryModel("Other", R.drawable.ic_other))
+        data.add(CategoryModel("Other", R.drawable.ic_salary));
 
         return data
     }
