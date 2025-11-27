@@ -37,6 +37,7 @@ class ExpendStaticCategoryChildAdapter(
             binding.imgCategory.setImageResource(itemChild.imgCategory)
             binding.txtCategory.text = itemChild.nameCategory
             binding.txtTotalMoney.text = itemChild.totalMoneyCategory
+            binding.pbCategory.progress = itemChild.progress
         }
 
     }

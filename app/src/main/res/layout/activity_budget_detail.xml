@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white"
     android:padding="16dp">
@@ -35,7 +37,11 @@
         android:id="@+id/lstBudgetName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:paddingStart="@dimen/_26ssp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_budget"/>
 
     <TextView
         android:id="@+id/btnAddBudget"

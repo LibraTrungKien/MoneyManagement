@@ -28,7 +28,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         Glide.with(this).load(R.drawable.img_title).into(binding.imgLogo)
         Glide.with(this).load(R.drawable.img_start).into(binding.imgLogoSmall)
         CoroutineScope(Dispatchers.IO).launch {
-            sleep(5000)
+            sleep(1000)
             val intent = Intent(this@SplashActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()

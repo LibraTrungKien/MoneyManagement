@@ -13,6 +13,7 @@ import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivi
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
+import java.text.DecimalFormat
 
 class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding::inflate),
     OnClickItemTransaction {
@@ -63,7 +64,7 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
     }
 
     override fun bindView() {
-        super.bindView()
+        totalMoneyIncome()
     }
 
     private fun addIncome() {
@@ -98,5 +99,23 @@ class IncomeFragment : BaseFragment<FragmentIncomeBinding>(FragmentIncomeBinding
             }
         }
     }
+
+    private fun totalMoneyIncome(){
+        val db = DataManager.getDataBase(requireContext())
+        db.addNewDao().getAll().observe(this){list ->
+            val typeIncome = list.filter { it.type == "income" }
+            val totalMoney = typeIncome.sumOf { it.amount }
+
+            val formatMoneyIncome = formatMoney(totalMoney)
+
+            binding.txtMoney.text = "${formatMoneyIncome} đ"
+        }
+    }
+
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
+    }
+
 
 }

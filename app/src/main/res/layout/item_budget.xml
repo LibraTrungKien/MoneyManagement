@@ -4,6 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_marginBottom="16dp"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +42,7 @@
             android:text="Necessities"
             android:textColor="#2D0D59"
             android:textSize="14sp"
+            android:layout_marginTop="-8dp"
             app:layout_constraintEnd_toEndOf="@id/imgBudget"
             app:layout_constraintStart_toStartOf="@id/imgBudget"
             app:layout_constraintTop_toBottomOf="@id/imgBudget" />
@@ -71,12 +74,13 @@
             android:id="@+id/txtMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/urbanist_600"
+            android:fontFamily="@font/urbanist_500"
             android:text="1000000 đ"
             android:textColor="#772DDF"
             android:textSize="16sp" />
 
         <ImageView
+            android:id="@+id/btnUpdateMoney"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="@dimen/_6ssp"

@@ -69,6 +69,8 @@ class LoanStaticViewModel : ViewModel() {
         db.addNewDao().getAll().observe(own) { entity ->
             val groupTypeNameCategory = entity.filter { it.type == "loan" }
 
+            val totalMoneyLoan = groupTypeNameCategory.sumOf { it.amount }
+
             val formatter = DateTimeFormatter.ofPattern("d/M/yyyy")
 
             val groupMonth = groupTypeNameCategory.groupBy { date ->
@@ -82,12 +84,14 @@ class LoanStaticViewModel : ViewModel() {
                 val childList = items.groupBy { it.nameTypeCategory }
                     .map { (categoryName, list) ->
                         val totalMoney = list.sumOf { it.amount }
-                        Log.d("data", totalMoney.toString())
+
+                        val processValue = (totalMoney * 100f) / totalMoneyLoan
+
                         StaticCategoryChildModel(
                             imgCategory = list.first().imgTypeCategory,
                             nameCategory = categoryName,
                             totalMoneyCategory = "$totalMoney đ",
-                            progress = 50
+                            progress = processValue.toInt()
                         )
 
                     }

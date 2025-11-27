@@ -4,37 +4,46 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemBudgetBinding
-import com.example.moneymanagement.presentation.model.BudgetDetailModel
+import com.example.moneymanagement.presentation.database.BudgetEntity
 
 class BudgetDetailAdapter(
-    val data : List<BudgetDetailModel>
+    private var items: List<BudgetEntity>,
+    private var onClickUpdateMoney: OnClickListenerUpdateMoney
 ) : RecyclerView.Adapter<BudgetDetailAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBudgetBinding.inflate(inflater, parent, false)
+    fun setData(newItems: List<BudgetEntity>) {
+        this.items = newItems
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemBudgetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: ViewHolder,
-        position: Int
-    ) {
-        holder.bindView(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindView(items[position])
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = items.size
 
-
-    inner class ViewHolder(val binding : ItemBudgetBinding) : RecyclerView.ViewHolder(binding.root){
-
-        fun bindView(budgetDetail : BudgetDetailModel){
-            binding.imgBudget.setBackgroundResource(budgetDetail.imgBudget)
+    inner class ViewHolder(val binding: ItemBudgetBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindView(budgetDetail: BudgetEntity) {
             binding.txtNameBudget.text = budgetDetail.nameBudget
             binding.txtMoney.text = budgetDetail.moneyBudget.toString()
+
+            val moneyJar = binding.txtMoney.text.toString()
+            val nameJar = binding.txtNameBudget.text.toString()
+
+            binding.btnUpdateMoney.setOnClickListener {
+                onClickUpdateMoney.getJar(absoluteAdapterPosition + 1, moneyJar.toInt(), nameJar)
+
+            }
+
+            binding.root.setOnClickListener {
+                onClickUpdateMoney.onItemClick(budgetDetail)
+            }
+
         }
 
     }

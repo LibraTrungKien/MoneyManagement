@@ -77,7 +77,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             val incomeMoney = list.filter { it.type == "income" }
             val totalMoneyIncome = incomeMoney.sumOf { it.amount }
 
-            totalMoney = money - totalMoneyExpend + totalMoneyIncome
+            val loanMoney = list.filter { it.type == "loan" && it.nameTypeCategory == "Loan" }
+            val totalMoneyLoan =  loanMoney.sumOf { it.amount }
+
+            val borrowMoney = list.filter { it.type == "loan" && it.nameTypeCategory == "Borrow" }
+            val totalMoneyBorrow = borrowMoney.sumOf { it.amount }
+
+            totalMoney = money - totalMoneyExpend + totalMoneyIncome - totalMoneyBorrow + totalMoneyLoan
             formattedTotalMoney = formatMoney(totalMoney)
 
             if (initMoneyVisible) {

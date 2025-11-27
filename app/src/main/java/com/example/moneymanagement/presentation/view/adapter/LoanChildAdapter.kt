@@ -42,7 +42,7 @@ class LoanChildAdapter(
             binding.txtTime.text = itemChild.time
             binding.txtContentCategory.text = itemChild.note
 
-            if(itemChild.nameCategory == "Bills"){
+            if(itemChild.nameCategory == "Loan"){
                 binding.txtPrice.text = "+" + formatMoney(itemChild.expendPrice) + "vnđ"
                 binding.txtPrice.setTextColor(Color.parseColor("#4CAF50"))
             } else {

@@ -14,6 +14,7 @@ import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivi
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
+import java.text.DecimalFormat
 
 class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::inflate),
     OnClickItemTransaction {
@@ -32,7 +33,7 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
         adapter = LoanParentAdapter(emptyList(), this)
         binding.lstHistoryLoan.adapter = adapter
 
-        viewModel.loanList.observe(viewLifecycleOwner){ loanEntities ->
+        viewModel.loanList.observe(viewLifecycleOwner) { loanEntities ->
             val filterType = loanEntities.filter { it.type == "loan" }
             data = viewModel.initData(filterType)
             adapter.setData(data)
@@ -63,7 +64,6 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
             }
         }
 
-
     }
 
     override fun initializeData() {
@@ -71,10 +71,10 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
     }
 
     override fun bindView() {
-        super.bindView()
+        totalMoney()
     }
 
-    override fun onItemClick(item: TransactionChild, date : String) {
+    override fun onItemClick(item: TransactionChild, date: String) {
         val gson = Gson()
         val value = gson.toJson(item)
         val intent = Intent(requireContext(), TransactionsActivity::class.java)
@@ -100,6 +100,27 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
                 adapter.setData(parentData)
             }
         }
+    }
+
+    private fun totalMoney() {
+        val db = DataManager.getDataBase(requireContext())
+        db.addNewDao().getAll().observe(this) { list ->
+            val type = list.filter { it.type == "loan" }
+            val totalMoneyLoan = type.filter { it.nameTypeCategory == "Loan" }.sumOf { it.amount }
+            val totalMoneyBorrow =
+                type.filter { it.nameTypeCategory == "Borrow" }.sumOf { it.amount }
+
+            val formatMoneyLoan = formatMoney(totalMoneyLoan)
+            binding.txtMoneyLoan.text = "$formatMoneyLoan đ"
+
+            val formatMoneyBorrow = formatMoney(totalMoneyBorrow)
+            binding.txtMoneyBorrow.text = "$formatMoneyBorrow đ"
+        }
+    }
+
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
     }
 
 }

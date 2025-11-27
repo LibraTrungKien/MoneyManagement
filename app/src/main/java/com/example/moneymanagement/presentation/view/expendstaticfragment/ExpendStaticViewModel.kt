@@ -61,8 +61,6 @@ class ExpendStaticViewModel : ViewModel() {
 
             val grouped = groupType.groupBy { it.nameTypeCategory }
 
-            Log.d("BAR", "Expend categories = ${grouped.keys}")
-
             val barEntries = ArrayList<BarEntry>()
             val labels = ArrayList<String>()
 
@@ -81,6 +79,7 @@ class ExpendStaticViewModel : ViewModel() {
         db.addNewDao().getAll().observe(owner) { expendList ->
 
             val groupType = expendList.filter { it.type == "expend" }
+            val totalExpends = groupType.sumOf { it.amount }
 
             val formatter = DateTimeFormatter.ofPattern("d/M/yyyy")
 
@@ -96,11 +95,13 @@ class ExpendStaticViewModel : ViewModel() {
 
                         val totalCategory = list.sumOf { it.amount}
 
+                        val processValue: Float = (totalCategory * 100f) / totalExpends
+
                         StaticCategoryChildModel(
                             imgCategory = list.first().imgTypeCategory,
                             nameCategory = categoryName,
                             totalMoneyCategory = "$totalCategory đ",
-                            progress = 50
+                            progress = processValue.toInt()
                         )
                     }
 

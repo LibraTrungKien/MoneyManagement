@@ -13,6 +13,7 @@ import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivi
 import com.example.moneymanagement.presentation.view.base.BaseFragment
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
+import java.text.DecimalFormat
 
 class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding::inflate),
     OnClickItemTransaction {
@@ -43,7 +44,6 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
             }
         }
 
-
     }
 
     override fun initializeEvents() {
@@ -68,7 +68,7 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
     }
 
     override fun bindView() {
-        super.bindView()
+        totalExpend()
     }
 
     private fun addExpend() {
@@ -102,6 +102,24 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
                 parentAdapter.setData(parentData)
             }
         }
+    }
+
+    private fun totalExpend(){
+        val db = DataManager.getDataBase(requireContext())
+        db.addNewDao().getAll().observe(this){list ->
+            val typeExpend = list.filter { it.type == "expend"}
+            val totalMoneyExpends = typeExpend.sumOf { it.amount }
+
+            val formatMoney = formatMoney(totalMoneyExpends)
+
+           binding.txtMoney.text = "$formatMoney đ"
+
+        }
+    }
+
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
     }
 
 
