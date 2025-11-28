@@ -35,12 +35,12 @@ class BudgetDetailActivity :
 
         val appDatabase = DataManager.getDataBase(this)
         viewModel.setAppDataBase(appDatabase)
-        viewModel.getData()
+
 
         adapter = BudgetDetailAdapter(emptyList(), this)
         binding.lstBudgetName.adapter = adapter
 
-        viewModel.getData.observe(this) {
+        viewModel.listBudget.observe(this) {
             adapter.setData(it)
         }
 
@@ -63,7 +63,6 @@ class BudgetDetailActivity :
     }
 
     override fun bindView() {
-
     }
 
     override fun onAddBudgetListener(setMoney: Int, setNameBudget: String) {
