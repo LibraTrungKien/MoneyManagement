@@ -14,25 +14,13 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_budget_detail">
 
-
         <TextView
-            android:id="@+id/imgBudgetLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_jar_line"
+            android:id="@+id/imgBudget"
+            android:layout_width="80dp"
+            android:layout_height="96dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/imgBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_jar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgBudgetLine"
-            android:layout_marginTop="-16dp"/>
 
         <TextView
             android:id="@id/txtNameBudget"

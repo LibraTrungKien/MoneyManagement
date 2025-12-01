@@ -16,4 +16,8 @@ interface AddMoneyBudgetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdate(moneyBudgetEntity: MoneyBudgetEntity)
 
+    @Query("SELECT * FROM MoneyBudgetEntity WHERE id = 1")
+    suspend fun getMoneyNow() :  MoneyBudgetEntity
+
+
 }

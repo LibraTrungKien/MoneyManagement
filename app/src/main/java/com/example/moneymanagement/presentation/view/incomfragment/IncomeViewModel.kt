@@ -33,7 +33,8 @@ class IncomeViewModel : ViewModel() {
                     note = it.note ?: "",
                     time = it.time,
                     expendPrice = it.amount,
-                    nameBudget = it.nameBudget
+                    nameBudget = it.nameBudget,
+                    imgBudget = it.imgBudget
                 )
             }
             TransactionParent(date, children)

@@ -92,9 +92,10 @@ class AddNewIncomeFragment :
         bottomSheet.show(requireActivity().supportFragmentManager, "Set Date Bottom Sheet Dialog")
     }
 
-    override fun onClickListenerBudget(nameBudget: String) {
+    override fun onClickListenerBudget(nameBudget: String, imgBudget : Int) {
         binding.txtBudgetSelection.text = nameBudget
         this.nameBudget = nameBudget
+        this.imgBudget = imgBudget
     }
 
     override fun onCLickListenerDate(
@@ -147,6 +148,7 @@ class AddNewIncomeFragment :
             amountMoney,
             nameCategory,
             imgCategory,
+            imgBudget,
             nameBudget,
             note,
             date,

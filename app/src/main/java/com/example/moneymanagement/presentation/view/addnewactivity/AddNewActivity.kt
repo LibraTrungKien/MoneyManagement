@@ -6,6 +6,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.moneymanagement.databinding.ActivityAddNewBinding
+import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.adapter.AddNewAdapter
 import com.example.moneymanagement.presentation.view.addnewexpendfragment.AddNewExpendFragment
@@ -19,6 +20,7 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
     private lateinit var adapter: AddNewAdapter
     private val addNewViewModel: AddNewViewModel by viewModels()
     private lateinit var typeAddNew: String
+    private lateinit var appDatabase: AppDatabase
 
     override fun initializeComponent() {
         super.initializeComponent()
@@ -33,7 +35,7 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
         adapter = AddNewAdapter(this)
         binding.viewPagerAddNew.adapter = adapter
 
-        val appDatabase = DataManager.getDataBase(this)
+        appDatabase = DataManager.getDataBase(this)
         addNewViewModel.setAppDataBase(appDatabase)
 
         TabLayoutMediator(binding.tabLayoutAdd, binding.viewPagerAddNew) { tab, position ->
@@ -58,6 +60,8 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
                 addNewViewModel.setType(typeAddNew)
             }
             })
+
+        updateJar()
 
     }
 
@@ -98,11 +102,18 @@ class AddNewActivity : BaseActivity<ActivityAddNewBinding>(ActivityAddNewBinding
                 expend.nameBudget,
                 expend.note,
                 expend.date,
-                expend.time
+                expend.time,
+                expend.imgBudget
 
             )
             Toast.makeText(this, "Save success", Toast.LENGTH_SHORT).show()
             finish()
+        }
+    }
+
+    private fun updateJar(){
+        appDatabase.addNewDao().getAll().observe(this){
+            addNewViewModel.updateMoneyJar(it)
         }
     }
 

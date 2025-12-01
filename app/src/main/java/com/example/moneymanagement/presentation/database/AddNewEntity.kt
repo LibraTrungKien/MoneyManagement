@@ -11,6 +11,7 @@ data class AddNewEntity (
     val amount: Int,
     val nameTypeCategory: String,
     val imgTypeCategory: Int,
+    val imgBudget: Int,
     val nameBudget: String,
     val note: String?,
     val date: String,

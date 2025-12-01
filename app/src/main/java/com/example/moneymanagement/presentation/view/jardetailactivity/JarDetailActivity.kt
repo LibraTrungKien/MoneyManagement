@@ -8,6 +8,7 @@ import com.example.moneymanagement.presentation.database.BudgetEntity
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.google.gson.Gson
+import java.text.DecimalFormat
 
 class JarDetailActivity :
     BaseActivity<ActivityJarDetailBinding>(ActivityJarDetailBinding::inflate) {
@@ -25,7 +26,6 @@ class JarDetailActivity :
         val gson = Gson()
         budgetEntity = gson.fromJson(data, BudgetEntity::class.java)
 
-
     }
 
     override fun initializeEvents() {
@@ -40,8 +40,13 @@ class JarDetailActivity :
     }
 
     override fun bindView() {
+
+        val formatMoneyJar = formatMoney(budgetEntity.moneyBudget)
+
         binding.txtTitleJar.text = budgetEntity.nameBudget
-        binding.totalMoneyJar.text = budgetEntity.moneyBudget.toString()
+        binding.totalMoneyJar.text = "$formatMoneyJar đ"
+        binding.imgJar.setImageResource(budgetEntity.imgBudget)
+
     }
 
     private fun deleteBudget() {
@@ -60,5 +65,9 @@ class JarDetailActivity :
     }
 
 
+    private fun formatMoney(amount: Int): String {
+        val formatter = DecimalFormat("#,###")
+        return formatter.format(amount).replace(",", ".")
+    }
 
 }

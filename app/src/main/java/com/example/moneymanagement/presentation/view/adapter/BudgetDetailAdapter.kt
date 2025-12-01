@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemBudgetBinding
 import com.example.moneymanagement.presentation.database.BudgetEntity
+import java.text.DecimalFormat
 
 class BudgetDetailAdapter(
     private var items: List<BudgetEntity>,
@@ -29,15 +30,19 @@ class BudgetDetailAdapter(
 
     inner class ViewHolder(val binding: ItemBudgetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(budgetDetail: BudgetEntity) {
+
+            val formatMoney = formatMoney(budgetDetail.moneyBudget)
+
             binding.txtNameBudget.text = budgetDetail.nameBudget
-            binding.txtMoney.text = budgetDetail.moneyBudget.toString()
+            binding.txtMoney.text = "$formatMoney"
+            binding.imgBudget.setBackgroundResource(budgetDetail.imgBudget)
 
             val moneyJar = binding.txtMoney.text.toString()
+            val formatMoneyJar = moneyJar.replace(".", "")
             val nameJar = binding.txtNameBudget.text.toString()
 
             binding.btnUpdateMoney.setOnClickListener {
-                onClickUpdateMoney.getJar(absoluteAdapterPosition + 1, moneyJar.toInt(), nameJar)
-
+                onClickUpdateMoney.getJar(budgetDetail.id, formatMoneyJar.toInt(), nameJar)
             }
 
             binding.root.setOnClickListener {
@@ -45,6 +50,12 @@ class BudgetDetailAdapter(
             }
 
         }
+
+        private fun formatMoney(amount: Int): String {
+            val formatter = DecimalFormat("#,###")
+            return formatter.format(amount).replace(",", ".")
+        }
+
 
     }
 }

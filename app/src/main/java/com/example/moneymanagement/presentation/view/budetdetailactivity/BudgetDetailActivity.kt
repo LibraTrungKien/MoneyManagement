@@ -5,6 +5,8 @@ import android.util.Log
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.ActivityBudgetDetailBinding
@@ -28,6 +30,9 @@ class BudgetDetailActivity :
     private lateinit var adapter: BudgetDetailAdapter
     private lateinit var viewModel: BudgetDetailViewModel
 
+    private val _data = MutableLiveData<List<BudgetEntity>>()
+    val data: LiveData<List<BudgetEntity>> get() = _data
+
     override fun initializeComponent() {
         super.initializeComponent()
 
@@ -35,6 +40,7 @@ class BudgetDetailActivity :
 
         val appDatabase = DataManager.getDataBase(this)
         viewModel.setAppDataBase(appDatabase)
+        viewModel.getAllCategory()
 
 
         adapter = BudgetDetailAdapter(emptyList(), this)
@@ -43,6 +49,8 @@ class BudgetDetailActivity :
         viewModel.listBudget.observe(this) {
             adapter.setData(it)
         }
+
+        viewModel.initData()
 
     }
 
@@ -66,7 +74,7 @@ class BudgetDetailActivity :
     }
 
     override fun onAddBudgetListener(setMoney: Int, setNameBudget: String) {
-        viewModel.initData(setNameBudget, setMoney)
+
     }
 
     override fun getJar(id: Int, money: Int, jarName: String) {
@@ -76,11 +84,10 @@ class BudgetDetailActivity :
     }
 
     override fun updateMoney(id: Int, moneyJar: Int) {
-        viewModel.updateMoney(id, moneyJar)
-        Toast.makeText(this, "update success", Toast.LENGTH_SHORT).show()
+        viewModel.updateMoney(id, moneyJar, this)
     }
 
-    override fun onItemClick(budget : BudgetEntity) {
+    override fun onItemClick(budget: BudgetEntity) {
         val intent = Intent(this, JarDetailActivity::class.java)
         val gson = Gson()
         val data = gson.toJson(budget)

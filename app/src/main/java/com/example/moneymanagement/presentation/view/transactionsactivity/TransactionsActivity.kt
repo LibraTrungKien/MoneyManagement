@@ -37,8 +37,6 @@ class TransactionsActivity :
         val incomeDate = intent.getStringExtra("KEY_INCOME")
         val loanDate = intent.getStringExtra("KEY_LOAN")
 
-        Log.d("abc", expendValue.toString())
-
         if (expendValue != null) {
             value = expendValue
             date = expendDate
@@ -101,6 +99,9 @@ class TransactionsActivity :
         binding.txtNameBudget.text = data.nameBudget
         binding.txtContentBudget.text = data.note
         binding.edtNote.setText(data.note)
+        binding.imgBudget.setImageResource(data.imgBudget)
+
+        Log.d("nam", data.imgBudget.toString())
     }
 
     private fun deleteItem() {
