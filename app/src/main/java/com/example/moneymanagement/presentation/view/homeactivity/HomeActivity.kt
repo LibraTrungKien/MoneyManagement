@@ -5,6 +5,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivityHomeBinding
 import com.example.moneymanagement.presentation.database.DataManager
@@ -22,6 +23,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private lateinit var adapter: HomeAdapter
     private var initMoneyVisible = true
     private var yearPopup: SelectionYearPopup? = null
+    private lateinit var viewModel: HomeViewModel
 
     override fun initializeComponent() {
 
@@ -34,6 +36,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         adapter = HomeAdapter(this)
         binding.viewPager.adapter = adapter
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
@@ -43,6 +46,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                 else -> "Expend"
             }
         }.attach()
+
+        viewModel.selectedMonthYear.observe(this) {
+            binding.txtMonth.text = "${it.third} ${it.second}"
+        }
+
     }
 
     override fun initializeEvents() {
@@ -71,19 +79,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         val db = DataManager.getDataBase(this)
         db.addNewDao().getAll().observe(this) { list ->
 
-            val expendMoney = list.filter { it.type == "expend"}
+            val expendMoney = list.filter { it.type == "expend" }
             val totalMoneyExpend = expendMoney.sumOf { it.amount }
 
             val incomeMoney = list.filter { it.type == "income" }
             val totalMoneyIncome = incomeMoney.sumOf { it.amount }
 
             val loanMoney = list.filter { it.type == "loan" && it.nameTypeCategory == "Loan" }
-            val totalMoneyLoan =  loanMoney.sumOf { it.amount }
+            val totalMoneyLoan = loanMoney.sumOf { it.amount }
 
             val borrowMoney = list.filter { it.type == "loan" && it.nameTypeCategory == "Borrow" }
             val totalMoneyBorrow = borrowMoney.sumOf { it.amount }
 
-            totalMoney = money - totalMoneyExpend + totalMoneyIncome - totalMoneyBorrow + totalMoneyLoan
+            totalMoney =
+                money - totalMoneyExpend + totalMoneyIncome - totalMoneyBorrow + totalMoneyLoan
             formattedTotalMoney = formatMoney(totalMoney)
 
             if (initMoneyVisible) {

@@ -2,6 +2,7 @@ package com.example.moneymanagement.presentation.view.loanfragment
 
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentLoanBinding
 import com.example.moneymanagement.presentation.Utils
@@ -12,6 +13,7 @@ import com.example.moneymanagement.presentation.view.adapter.LoanParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.example.moneymanagement.presentation.view.homeactivity.HomeViewModel
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
 import java.text.DecimalFormat
@@ -22,10 +24,13 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
     private lateinit var adapter: LoanParentAdapter
     private lateinit var data: List<TransactionParent>
     private lateinit var viewModel: LoanViewModel
+    private lateinit var shareDateViewModel: HomeViewModel
+
 
     override fun initializeComponent() {
 
         viewModel = ViewModelProvider(this)[LoanViewModel::class.java]
+        shareDateViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
         val appDatabase = DataManager.getDataBase(requireContext())
         viewModel.setAppDatabase(appDatabase)
@@ -43,6 +48,10 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
             } else {
                 View.GONE
             }
+        }
+
+        shareDateViewModel.selectedMonthYear.observe(viewLifecycleOwner) { (month, year, _) ->
+            filterByMonthYear(month, year)
         }
 
     }
@@ -121,6 +130,35 @@ class LoanFragment : BaseFragment<FragmentLoanBinding>(FragmentLoanBinding::infl
     private fun formatMoney(amount: Int): String {
         val formatter = DecimalFormat("#,###")
         return formatter.format(amount).replace(",", ".")
+    }
+
+    private fun filterByMonthYear(selectedMonth: Int, selectedYear: Int) {
+
+        if(selectedMonth == 0 || selectedYear == 0){
+            Toast.makeText(requireContext(), "You are selection month", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        viewModel.loanList.observe(viewLifecycleOwner) { loanEntities ->
+            val filtered = loanEntities.filter { item ->
+                val (month, year) = extractMonthYear(item.date)
+                item.type == "expend" && month == selectedMonth && year == selectedYear
+            }
+
+            val parentData = viewModel.initData(filtered)
+            adapter.setData(parentData)
+
+            binding.txtTransaction.visibility =
+                if (filtered.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+
+    private fun extractMonthYear(dateString: String): Pair<Int, Int> {
+        val parts = dateString.split("/")
+        val month = parts[1].toInt()
+        val year = parts[2].toInt()
+        return Pair(month, year)
     }
 
 }

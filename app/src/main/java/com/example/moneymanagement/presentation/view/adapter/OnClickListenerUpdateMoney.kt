@@ -10,5 +10,5 @@ interface OnClickListenerUpdateMoney {
     fun updateMoney (id : Int, moneyJar : Int)
 
     fun onItemClick (budget : BudgetEntity)
-
+    
 }

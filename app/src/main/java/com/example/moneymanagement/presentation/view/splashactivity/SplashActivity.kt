@@ -1,6 +1,7 @@
 package com.example.moneymanagement.presentation.view.splashactivity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -9,10 +10,12 @@ import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivitySplashBinding
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.example.moneymanagement.presentation.view.homeactivity.HomeActivity
+import com.example.moneymanagement.presentation.view.introactivity.IntroActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Thread.sleep
+import androidx.core.content.edit
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
 
@@ -27,13 +30,29 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
 
         Glide.with(this).load(R.drawable.img_title).into(binding.imgLogo)
         Glide.with(this).load(R.drawable.img_start).into(binding.imgLogoSmall)
+
+        moveToView()
+
+    }
+
+    private fun moveToView() {
+
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE)
+        val isFirstRun: Boolean = sharedPreferences.getBoolean("isFirstRun", true)
+
         CoroutineScope(Dispatchers.IO).launch {
-            sleep(1000)
-            val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-            startActivity(intent)
+            sleep(5000)
+
+            if (isFirstRun) {
+                val intent = Intent(this@SplashActivity, IntroActivity::class.java)
+                startActivity(intent)
+                sharedPreferences.edit { putBoolean("isFirstRun", false) }
+            } else {
+                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                startActivity(intent)
+            }
             finish()
         }
-
 
     }
 

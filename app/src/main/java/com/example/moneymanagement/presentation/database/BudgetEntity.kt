@@ -8,6 +8,6 @@ data class BudgetEntity (
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
     val nameBudget : String,
-    val moneyBudget : Int,
+    val moneyBudget : Int = 0,
     val imgBudget: Int,
 )

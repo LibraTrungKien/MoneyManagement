@@ -1,7 +1,9 @@
 package com.example.moneymanagement.presentation.view.expendfragment
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentExpendBinding
 import com.example.moneymanagement.presentation.Utils
@@ -11,6 +13,7 @@ import com.example.moneymanagement.presentation.view.adapter.ExpendParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
 import com.example.moneymanagement.presentation.view.base.BaseFragment
+import com.example.moneymanagement.presentation.view.homeactivity.HomeViewModel
 import com.example.moneymanagement.presentation.view.transactionsactivity.TransactionsActivity
 import com.google.gson.Gson
 import java.text.DecimalFormat
@@ -19,12 +22,13 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
     OnClickItemTransaction {
 
     private lateinit var viewModel: ExpendViewModel
-
+    private lateinit var shareDateViewModel: HomeViewModel
     private lateinit var parentAdapter: ExpendParentAdapter
 
     override fun initializeComponent() {
 
         viewModel = ViewModelProvider(this)[ExpendViewModel::class.java]
+        shareDateViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
         parentAdapter = ExpendParentAdapter(this, emptyList())
         binding.lstHistoryExpendParent.adapter = parentAdapter
@@ -42,6 +46,10 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
             } else {
                 View.GONE
             }
+        }
+
+        shareDateViewModel.selectedMonthYear.observe(viewLifecycleOwner) { (month, year, _) ->
+            filterByMonthYear(month, year)
         }
 
     }
@@ -104,15 +112,15 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
         }
     }
 
-    private fun totalExpend(){
+    private fun totalExpend() {
         val db = DataManager.getDataBase(requireContext())
-        db.addNewDao().getAll().observe(this){list ->
-            val typeExpend = list.filter { it.type == "expend"}
+        db.addNewDao().getAll().observe(this) { list ->
+            val typeExpend = list.filter { it.type == "expend" }
             val totalMoneyExpends = typeExpend.sumOf { it.amount }
 
             val formatMoney = formatMoney(totalMoneyExpends)
 
-           binding.txtMoney.text = "$formatMoney đ"
+            binding.txtMoney.text = "$formatMoney đ"
 
         }
     }
@@ -123,6 +131,34 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
     }
 
 
+    private fun filterByMonthYear(selectedMonth: Int, selectedYear: Int) {
+
+        if(selectedMonth == 0 || selectedYear == 0){
+            Toast.makeText(requireContext(), "You are selection month", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        viewModel.expendList.observe(viewLifecycleOwner) { expendEntities ->
+            val filtered = expendEntities.filter { item ->
+                val (month, year) = extractMonthYear(item.date)
+                item.type == "expend" && month == selectedMonth && year == selectedYear
+            }
+
+            val parentData = viewModel.initData(filtered)
+            parentAdapter.setData(parentData)
+
+            binding.txtTransaction.visibility =
+                if (filtered.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+
+    private fun extractMonthYear(dateString: String): Pair<Int, Int> {
+        val parts = dateString.split("/")
+        val month = parts[1].toInt()
+        val year = parts[2].toInt()
+        return Pair(month, year)
+    }
 }
 
 

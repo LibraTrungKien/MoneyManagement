@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
 
-    private var money = MutableLiveData<String>()
-    private val totalMoney : LiveData<String> get() = money
+    private val _selectedMonthYear = MutableLiveData<Triple<Int, Int, String>>()  // (month, year)
+    val selectedMonthYear: LiveData<Triple<Int, Int, String>> get() = _selectedMonthYear
+
+    fun sendMonthYear(month: Int, year: Int, monthFormat: String ) {
+        _selectedMonthYear.value = Triple(month, year, monthFormat)
+    }
 
 }

@@ -40,8 +40,6 @@ class BudgetDetailActivity :
 
         val appDatabase = DataManager.getDataBase(this)
         viewModel.setAppDataBase(appDatabase)
-        viewModel.getAllCategory()
-
 
         adapter = BudgetDetailAdapter(emptyList(), this)
         binding.lstBudgetName.adapter = adapter
@@ -51,6 +49,7 @@ class BudgetDetailActivity :
         }
 
         viewModel.initData()
+
 
     }
 
@@ -71,6 +70,7 @@ class BudgetDetailActivity :
     }
 
     override fun bindView() {
+
     }
 
     override fun onAddBudgetListener(setMoney: Int, setNameBudget: String) {
@@ -94,5 +94,6 @@ class BudgetDetailActivity :
         intent.putExtra(Utils.BUDGET_DETAIL.name, data)
         startActivity(intent)
     }
+
 
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R
 import com.example.moneymanagement.presentation.database.AppDatabase
@@ -20,6 +21,9 @@ class BudgetDetailViewModel : ViewModel() {
     private lateinit var appDatabase: AppDatabase
 
     lateinit var listBudget: LiveData<List<BudgetEntity>>
+
+    private var _money = MutableLiveData<Int>()
+    val money: LiveData<Int> get() = _money
 
     fun setAppDataBase(appDatabase: AppDatabase) {
         this.appDatabase = appDatabase
@@ -71,8 +75,9 @@ class BudgetDetailViewModel : ViewModel() {
         }
     }
 
+    fun takeFromJar(owner: LifecycleOwner) {
 
-    fun getAllCategory() {
+
 
     }
 

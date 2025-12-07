@@ -27,13 +27,17 @@ import com.github.mikephil.charting.utils.MPPointF
 import androidx.core.graphics.toColorInt
 import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
 import com.example.moneymanagement.presentation.view.adapter.ExpendStaticCategoryParentAdapter
+import com.example.moneymanagement.presentation.view.homeactivity.HomeViewModel
+import com.example.moneymanagement.presentation.view.selectmonthdialog.SelectionYearPopup
 
 class ExpendStaticFragment :
     BaseFragment<FragmentExpendStaticBinding>(FragmentExpendStaticBinding::inflate) {
 
     private lateinit var viewModel: ExpendStaticViewModel
     private var chartIsFirst: Boolean = true
+    private var yearPopup: SelectionYearPopup? = null
     private lateinit var adapter : ExpendStaticCategoryParentAdapter
+    private lateinit var homeViewModel: HomeViewModel
 
 
     override fun initializeComponent() {
@@ -43,6 +47,8 @@ class ExpendStaticFragment :
 
         adapter = ExpendStaticCategoryParentAdapter(emptyList())
         binding.lstStaticCategory.adapter = adapter
+
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
         viewModel = ViewModelProvider(this)[ExpendStaticViewModel::class.java]
         viewModel.setAppDataBase(appDatabase)
@@ -61,6 +67,10 @@ class ExpendStaticFragment :
         viewModel.dataStatic.observe(viewLifecycleOwner){
             adapter.setData(it)
         }
+
+        homeViewModel.selectedMonthYear.observe(viewLifecycleOwner){(month, year , monthFormat) ->
+            binding.txtMonth.text = monthFormat
+        }
     }
 
     override fun initializeEvents() {
@@ -77,6 +87,8 @@ class ExpendStaticFragment :
                 binding.columChart.isVisible = false
             }
         }
+
+        binding.btnCalender.setOnClickListener { showYearPopup() }
     }
 
 
@@ -144,6 +156,14 @@ class ExpendStaticFragment :
         column.isHighlightFullBarEnabled = false
 
         column.invalidate()
+    }
+
+
+    private fun showYearPopup() {
+        if (yearPopup == null) {
+            yearPopup = SelectionYearPopup(requireContext(), this)
+        }
+        yearPopup?.showPopup(binding.btnCalender)
     }
 
 

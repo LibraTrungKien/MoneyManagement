@@ -13,8 +13,8 @@ interface AddBudgetDetailDao {
     @Query("SELECT * FROM BudgetEntity")
     fun getBudgetDetail(): LiveData<List<BudgetEntity>>
 
-    @Query("SELECT * FROM BudgetEntity")
-    fun getImgBudgetById(): BudgetEntity
+//    @Query("SELECT * FROM BudgetEntity")
+//    fun getImgBudgetById(): BudgetEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertBudgetDetail(budgetEntity: BudgetEntity)
