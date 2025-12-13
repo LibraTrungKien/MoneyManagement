@@ -5,7 +5,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentAddNewLoanBinding
 import com.example.moneymanagement.presentation.database.AddNewEntity
-import com.example.moneymanagement.presentation.model.CategoryModel
+import com.example.moneymanagement.presentation.database.model.CategoryModel
 import com.example.moneymanagement.presentation.view.dialog.BudgetBottomSheet
 import com.example.moneymanagement.presentation.view.adapter.AddNewCategoryAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemAddNew

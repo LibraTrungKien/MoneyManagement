@@ -1,7 +1,7 @@
 package com.example.moneymanagement.presentation.view.selectmonthdialog
 
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.presentation.model.MonthModel
+import com.example.moneymanagement.presentation.database.model.MonthModel
 
 class SelectionMonthViewModel : ViewModel() {
 

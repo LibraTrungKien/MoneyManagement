@@ -1,6 +1,6 @@
 package com.example.moneymanagement.presentation.view.adapter
 
-import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionChild
 
 interface OnClickItemTransaction {
 

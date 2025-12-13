@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.MoneyBudgetEntity
 import kotlinx.coroutines.CoroutineScope

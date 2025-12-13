@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.AddNewDao
 import com.example.moneymanagement.presentation.database.AddNewEntity
-import com.example.moneymanagement.presentation.model.TransactionChild
-import com.example.moneymanagement.presentation.model.TransactionParent
+import com.example.moneymanagement.presentation.database.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionParent
 
 class IncomeViewModel : ViewModel() {
 

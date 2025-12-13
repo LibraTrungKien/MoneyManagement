@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemStaticCategoryChildBinding
-import com.example.moneymanagement.presentation.model.StaticCategoryChildModel
+import com.example.moneymanagement.presentation.database.model.StaticCategoryChildModel
 
 class ExpendStaticCategoryChildAdapter(
 

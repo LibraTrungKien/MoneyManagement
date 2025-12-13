@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryParentBinding
-import com.example.moneymanagement.presentation.model.TransactionParent
+import com.example.moneymanagement.presentation.database.model.TransactionParent
 
 class IncomeParentAdapter(
     private val onClickListner: OnClickItemTransaction,

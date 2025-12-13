@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemMonthBinding
-import com.example.moneymanagement.presentation.model.MonthModel
+import com.example.moneymanagement.presentation.database.model.MonthModel
 
 class MonthAdapter(
     private val data: List<MonthModel>,

@@ -41,7 +41,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         val isFirstRun: Boolean = sharedPreferences.getBoolean("isFirstRun", true)
 
         CoroutineScope(Dispatchers.IO).launch {
-            sleep(5000)
+            sleep(4000)
 
             if (isFirstRun) {
                 val intent = Intent(this@SplashActivity, IntroActivity::class.java)

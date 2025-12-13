@@ -1,16 +1,12 @@
 package com.example.moneymanagement.presentation.view.expendstaticfragment
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.FragmentExpendStaticBinding
-import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.DataManager
 import com.example.moneymanagement.presentation.view.base.BaseFragment
-import com.example.moneymanagement.presentation.view.expendfragment.ExpendViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
@@ -20,12 +16,9 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.MPPointF
 import androidx.core.graphics.toColorInt
-import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
 import com.example.moneymanagement.presentation.view.adapter.ExpendStaticCategoryParentAdapter
 import com.example.moneymanagement.presentation.view.homeactivity.HomeViewModel
 import com.example.moneymanagement.presentation.view.selectmonthdialog.SelectionYearPopup

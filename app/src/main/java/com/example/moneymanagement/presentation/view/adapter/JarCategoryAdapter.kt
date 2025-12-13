@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemJarCategoryBinding
-import com.example.moneymanagement.presentation.model.JarCategory
+import com.example.moneymanagement.presentation.database.model.JarCategory
 import java.text.DecimalFormat
 
 class JarCategoryAdapter(

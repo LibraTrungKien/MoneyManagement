@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moneymanagement.databinding.ActivityIntroBinding
-import com.example.moneymanagement.presentation.model.IntroModel
+import com.example.moneymanagement.presentation.database.model.IntroModel
 import com.example.moneymanagement.presentation.view.adapter.IntroAdapter
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.example.moneymanagement.presentation.view.homeactivity.HomeActivity

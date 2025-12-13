@@ -2,10 +2,9 @@ package com.example.moneymanagement.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemStaticCategoryParentBinding
-import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
+import com.example.moneymanagement.presentation.database.model.StaticCategoryParentModel
 
 class IncomeStaticCategoryParentAdapter(
     private var data: List<StaticCategoryParentModel>

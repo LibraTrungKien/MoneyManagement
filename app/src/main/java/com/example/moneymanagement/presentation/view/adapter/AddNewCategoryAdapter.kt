@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemAddNewCategoryBinding
-import com.example.moneymanagement.presentation.model.CategoryModel
+import com.example.moneymanagement.presentation.database.model.CategoryModel
 
 class AddNewCategoryAdapter(
     val data: List<CategoryModel>,

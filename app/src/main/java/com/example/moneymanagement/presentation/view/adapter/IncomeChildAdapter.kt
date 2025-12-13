@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryChildBinding
-import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionChild
 import java.text.DecimalFormat
 
 class IncomeChildAdapter(

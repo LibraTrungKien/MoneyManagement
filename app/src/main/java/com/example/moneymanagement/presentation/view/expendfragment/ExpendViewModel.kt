@@ -5,11 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.AddNewDao
 import com.example.moneymanagement.presentation.database.AddNewEntity
-import com.example.moneymanagement.presentation.model.TransactionChild
-import com.example.moneymanagement.presentation.model.TransactionParent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.moneymanagement.presentation.database.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionParent
 import kotlin.collections.component1
 import kotlin.collections.component2
 

@@ -2,7 +2,7 @@ package com.example.moneymanagement.presentation.view.introactivity
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R
-import com.example.moneymanagement.presentation.model.IntroModel
+import com.example.moneymanagement.presentation.database.model.IntroModel
 
 class IntroViewModel : ViewModel() {
 

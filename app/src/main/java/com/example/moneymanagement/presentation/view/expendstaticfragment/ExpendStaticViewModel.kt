@@ -1,17 +1,12 @@
 package com.example.moneymanagement.presentation.view.expendstaticfragment
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneymanagement.presentation.database.AddNewEntity
 import com.example.moneymanagement.presentation.database.AppDatabase
-import com.example.moneymanagement.presentation.model.StaticCategoryChildModel
-import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
-import com.example.moneymanagement.presentation.model.TransactionChild
-import com.example.moneymanagement.presentation.model.TransactionParent
-import com.github.mikephil.charting.charts.BarChart
+import com.example.moneymanagement.presentation.database.model.StaticCategoryChildModel
+import com.example.moneymanagement.presentation.database.model.StaticCategoryParentModel
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
 import java.time.LocalDate

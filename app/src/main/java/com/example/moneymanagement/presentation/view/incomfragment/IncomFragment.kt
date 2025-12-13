@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentIncomeBinding
 import com.example.moneymanagement.presentation.Utils
 import com.example.moneymanagement.presentation.database.DataManager
-import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionChild
 import com.example.moneymanagement.presentation.view.adapter.IncomeParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity

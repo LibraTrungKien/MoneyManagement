@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemStaticCategoryParentBinding
-import com.example.moneymanagement.presentation.model.StaticCategoryParentModel
+import com.example.moneymanagement.presentation.database.model.StaticCategoryParentModel
 
 class ExpendStaticCategoryParentAdapter(
     private var data: List<StaticCategoryParentModel>

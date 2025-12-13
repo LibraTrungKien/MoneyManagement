@@ -1,11 +1,10 @@
 package com.example.moneymanagement.presentation.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemHistoryParentBinding
-import com.example.moneymanagement.presentation.model.TransactionParent
+import com.example.moneymanagement.presentation.database.model.TransactionParent
 
 class LoanParentAdapter(
     private var data: List<TransactionParent>,

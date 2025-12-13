@@ -3,15 +3,12 @@ package com.example.moneymanagement.presentation.view.transactionsactivity
 import android.graphics.Color
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.R
 import com.example.moneymanagement.databinding.ActivityTransactionsBinding
 import com.example.moneymanagement.presentation.Utils
-import com.example.moneymanagement.presentation.database.AddNewEntity
-import com.example.moneymanagement.presentation.database.AppDatabase
 import com.example.moneymanagement.presentation.database.DataManager
-import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionChild
 import com.example.moneymanagement.presentation.view.base.BaseActivity
 import com.google.gson.Gson
 import java.text.DecimalFormat

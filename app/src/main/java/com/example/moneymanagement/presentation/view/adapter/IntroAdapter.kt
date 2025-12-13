@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneymanagement.databinding.ItemIntrolBinding
-import com.example.moneymanagement.presentation.model.IntroModel
+import com.example.moneymanagement.presentation.database.model.IntroModel
 
 class IntroAdapter(var data: ArrayList<IntroModel>) :
     RecyclerView.Adapter<IntroAdapter.ViewHolder>() {

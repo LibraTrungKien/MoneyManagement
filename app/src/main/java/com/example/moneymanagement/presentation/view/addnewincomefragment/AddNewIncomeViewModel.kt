@@ -2,7 +2,7 @@ package com.example.moneymanagement.presentation.view.addnewincomefragment
 
 import androidx.lifecycle.ViewModel
 import com.example.moneymanagement.R
-import com.example.moneymanagement.presentation.model.CategoryModel
+import com.example.moneymanagement.presentation.database.model.CategoryModel
 
 class AddNewIncomeViewModel : ViewModel() {
 

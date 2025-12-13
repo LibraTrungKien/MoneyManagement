@@ -1,4 +1,4 @@
-package com.example.moneymanagement.presentation.model
+package com.example.moneymanagement.presentation.database.model
 
 data class IntroModel(
     val imgIntro: Int,

@@ -1,14 +1,13 @@
 package com.example.moneymanagement.presentation.view.expendfragment
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneymanagement.databinding.FragmentExpendBinding
 import com.example.moneymanagement.presentation.Utils
 import com.example.moneymanagement.presentation.database.DataManager
-import com.example.moneymanagement.presentation.model.TransactionChild
+import com.example.moneymanagement.presentation.database.model.TransactionChild
 import com.example.moneymanagement.presentation.view.adapter.ExpendParentAdapter
 import com.example.moneymanagement.presentation.view.adapter.OnClickItemTransaction
 import com.example.moneymanagement.presentation.view.addnewactivity.AddNewActivity
