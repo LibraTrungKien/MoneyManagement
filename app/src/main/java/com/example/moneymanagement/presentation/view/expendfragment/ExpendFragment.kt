@@ -107,6 +107,8 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
                 }
                 val parentData = viewModel.initData(filteredType)
                 parentAdapter.setData(parentData)
+                binding.txtTransaction.visibility =
+                    if (parentData.isEmpty()) View.VISIBLE else View.GONE
             }
         }
     }
@@ -132,7 +134,7 @@ class ExpendFragment : BaseFragment<FragmentExpendBinding>(FragmentExpendBinding
 
     private fun filterByMonthYear(selectedMonth: Int, selectedYear: Int) {
 
-        if(selectedMonth == 0 || selectedYear == 0){
+        if (selectedMonth == 0 || selectedYear == 0) {
             Toast.makeText(requireContext(), "You are selection month", Toast.LENGTH_SHORT).show()
             return
         }
